@@ -35,27 +35,22 @@ public class StaffManagenment implements IManagement<Staff>{
     }
 
     @Override
-    public void update() {
+    public void update(String id, Staff staff) {
 
     }
 
     @Override
-    public void delete() {
-
+    public void delete(String id) {
+          listStaff.remove(findId(id));
     }
 
     @Override
-    public void findId() {
-
+    public int findId(String id) {
+        for (int i = 0; i < listStaff.size(); i++) {
+            if (listStaff.get(i).getIdStaff() == Integer.parseInt(id)) {
+                return i;
+            }
+        }
+        return -1;
     }
-
-//    @Override
-//    public Array show() {
-//        Staff[] list = new Staff[listStaff.size()];
-//        for (Staff staff : listStaff) {
-//            list.pus
-//        }
-//        return ;
-//    }
-
 }

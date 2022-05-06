@@ -140,6 +140,15 @@ public class StaffManagementView implements Initializable {
         }
     }
 
+    @FXML
+    public void onDeleteButtonStaffClick() {
+        if (!tFId.getText().equals("")){
+            staffManagenment.delete(tFId.getId());
+            resetValue();
+            resetForm();
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         resetValue();

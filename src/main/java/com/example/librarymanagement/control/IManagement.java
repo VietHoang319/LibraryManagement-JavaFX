@@ -4,8 +4,7 @@ import java.lang.reflect.Array;
 
 public interface IManagement<T> {
     void add(T t);
-    void update();
-    void delete();
-    void findId();
-//    Array show();
+    void update(String id, T t);
+    void delete(String id);
+    int findId(String id);
 }

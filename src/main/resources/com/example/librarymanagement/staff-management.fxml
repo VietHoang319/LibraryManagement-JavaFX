@@ -76,7 +76,7 @@
                               <Insets left="10.0" right="10.0" />
                            </GridPane.margin>
                         </Button>
-                        <Button fx:id="bDelete" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Xóa nhân viên" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Button fx:id="bDelete" mnemonicParsing="false" onAction="#onDeleteButtonStaffClick" prefHeight="40.0" prefWidth="180.0" text="Xóa nhân viên" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets left="10.0" right="10.0" />
                            </GridPane.margin>
