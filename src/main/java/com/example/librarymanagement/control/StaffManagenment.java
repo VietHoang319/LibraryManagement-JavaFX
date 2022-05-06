@@ -8,7 +8,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StaffManagenment implements IManagement<Staff>{
+public class StaffManagenment implements IManagement<Staff> {
     private static final List<Staff> listStaff = new ArrayList<>();
     private Staff currentStaff;
 
@@ -36,12 +36,14 @@ public class StaffManagenment implements IManagement<Staff>{
 
     @Override
     public void update(String id, Staff staff) {
-
+        listStaff.set(findId(id), staff);
+        FileStaffCSV.writeFile(listStaff);
     }
 
     @Override
     public void delete(String id) {
-          listStaff.remove(findId(id));
+        listStaff.remove(findId(id));
+        FileStaffCSV.writeFile(listStaff);
     }
 
     @Override
@@ -52,5 +54,15 @@ public class StaffManagenment implements IManagement<Staff>{
             }
         }
         return -1;
+    }
+
+    public List<Staff> findStaffByIdOrName(String inp) {
+        List<Staff> listFind = new ArrayList<>();
+        for (Staff staff : listStaff) {
+            if (String.valueOf(staff.getIdStaff()).equals(inp) || staff.getNameStaff().equals(inp)) {
+                listFind.add(staff);
+            }
+        }
+        return listFind;
     }
 }

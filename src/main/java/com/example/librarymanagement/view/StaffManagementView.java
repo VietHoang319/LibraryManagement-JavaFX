@@ -111,6 +111,33 @@ public class StaffManagementView implements Initializable {
     }
 
     @FXML
+    protected void handleRowSelect() {
+        Staff row = tVStaff.getSelectionModel().getSelectedItem();
+        if (row != null) {
+            tFId.setText(String.valueOf(row.getIdStaff()));
+            tFName.setText(row.getNameStaff());
+            tFAddress.setText(row.getAddressStaff());
+            tFPassword.setText(row.getPassword());
+            tFUsername.setText(row.getUsername());
+            tFEmail.setText(row.getEmailStaff());
+            tFPhoneNumber.setText(row.getPhoneNumberStaff());
+            cBRole.setValue(row.getRole());
+            tFName.setDisable(false);
+            tFUsername.setDisable(false);
+            tFPassword.setDisable(false);
+            tFAddress.setDisable(false);
+            tFEmail.setDisable(false);
+            tFPhoneNumber.setDisable(false);
+            cBRole.setDisable(false);
+
+            bAdd.setDisable(false);
+            bSave.setDisable(true);
+            bEdit.setDisable(false);
+            bDelete.setDisable(false);
+        }
+    }
+
+    @FXML
     protected void onAddButtonStaffClick() {
         tFName.setDisable(false);
         tFUsername.setDisable(false);
@@ -121,8 +148,15 @@ public class StaffManagementView implements Initializable {
         cBRole.setDisable(false);
         bAdd.setDisable(true);
         bSave.setDisable(false);
+        bEdit.setDisable(true);
+        bDelete.setDisable(true);
         resetValue();
-        tFId.setText(String.valueOf(StaffManagenment.getListStaff().get(StaffManagenment.getListStaff().size() - 1).getIdStaff() + 1));
+        int sizeOfListEqualZero = 0;
+        if (StaffManagenment.getListStaff().size() == sizeOfListEqualZero) {
+            tFId.setText("0");
+        } else {
+            tFId.setText(String.valueOf(StaffManagenment.getListStaff().get(StaffManagenment.getListStaff().size() - 1).getIdStaff() + 1));
+        }
     }
 
     @FXML
@@ -134,18 +168,45 @@ public class StaffManagementView implements Initializable {
         } else if (tFPassword.getText().equals("")) {
             showAlertWithoutHeaderText("Bạn phải nhập mật khẩu");
         } else {
-            staffManagenment.add(new Staff(tFName.getText(), tFAddress.getText(), tFEmail.getText(), tFPhoneNumber.getText(), tFUsername.getText(), tFPassword.getText(), cBRole.getValue()));
+            staffManagenment.add(new Staff(tFName.getText().trim(), tFAddress.getText().trim(), tFEmail.getText().trim(), tFPhoneNumber.getText().trim(), tFUsername.getText().trim(), tFPassword.getText().trim(), cBRole.getValue().trim()));
             resetValue();
             resetForm();
         }
     }
 
     @FXML
-    public void onDeleteButtonStaffClick() {
-        if (!tFId.getText().equals("")){
-            staffManagenment.delete(tFId.getId());
+    protected void onDeleteButtonStaffClick() {
+        if (!tFId.getText().equals("")) {
+            staffManagenment.delete(tFId.getText());
             resetValue();
             resetForm();
+        }
+    }
+
+    @FXML
+    protected void onEditButtonStaffClick() {
+        if (!tFId.getText().equals("")) {
+            if (tFName.getText().equals("")) {
+                showAlertWithoutHeaderText("Bạn phải nhập tên nhân viên");
+            } else if (tFUsername.getText().equals("")) {
+                showAlertWithoutHeaderText("Bạn phải nhập tên đăng nhập");
+            } else if (tFPassword.getText().equals("")) {
+                showAlertWithoutHeaderText("Bạn phải nhập mật khẩu");
+            } else {
+                staffManagenment.update(tFId.getText(), new Staff(Integer.parseInt(tFId.getText()), tFName.getText(), tFAddress.getText(),
+                        tFEmail.getText(), tFPhoneNumber.getText(), tFUsername.getText(), tFPassword.getText(), cBRole.getValue()));
+                resetValue();
+                resetForm();
+            }
+        }
+    }
+
+    @FXML
+    protected void onFindButtonStaffClick() {
+        if (tFFind.getText().equals("")) {
+            showDataInTableView(StaffManagenment.getListStaff());
+        } else {
+            showDataInTableView(staffManagenment.findStaffByIdOrName(tFFind.getText()));
         }
     }
 

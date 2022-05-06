@@ -17,7 +17,12 @@ public class Staff {
     }
 
     public Staff(String nameStaff, String addressStaff, String emailStaff, String phoneNumberStaff, String username, String password, String role) {
-        this.idStaff = StaffManagenment.getListStaff().get(StaffManagenment.getListStaff().size() - 1).getIdStaff() + 1;
+        int sizeOfListEqualZero = 0;
+        if (StaffManagenment.getListStaff().size() == sizeOfListEqualZero) {
+            this.idStaff = 0;
+        } else {
+            this.idStaff = StaffManagenment.getListStaff().get(StaffManagenment.getListStaff().size() - 1).getIdStaff() + 1;
+        }
         this.nameStaff = nameStaff;
         this.addressStaff = addressStaff;
         this.emailStaff = emailStaff;
