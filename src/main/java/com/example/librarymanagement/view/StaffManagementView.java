@@ -2,6 +2,8 @@ package com.example.librarymanagement.view;
 
 import com.example.librarymanagement.control.StaffManagenment;
 import com.example.librarymanagement.model.Staff;
+import com.example.librarymanagement.validate.EmailValidate;
+import com.example.librarymanagement.validate.PhoneNumberValidate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,6 +17,9 @@ import java.util.ResourceBundle;
 
 public class StaffManagementView implements Initializable {
     private final StaffManagenment staffManagenment = new StaffManagenment();
+
+    private final EmailValidate emailValidate = new EmailValidate();
+    private final PhoneNumberValidate phoneNumberValidate = new PhoneNumberValidate();
     private final ObservableList<String> roles = FXCollections.observableArrayList("ADMIN", "NHÂN VIÊN");
 
     @FXML
@@ -167,6 +172,12 @@ public class StaffManagementView implements Initializable {
             showAlertWithoutHeaderText("Bạn phải nhập tên đăng nhập");
         } else if (tFPassword.getText().equals("")) {
             showAlertWithoutHeaderText("Bạn phải nhập mật khẩu");
+        } else if (cBRole.getValue().equals("")) {
+            showAlertWithoutHeaderText("Bạn phải chọn chức vụ cho nhân viên");
+        } else if (!tFEmail.getText().equals("") && !emailValidate.validate(tFEmail.getText())) {
+            showAlertWithoutHeaderText("Email của bạn không đúng định dạng");
+        } else if (!tFPhoneNumber.getText().equals("") && !phoneNumberValidate.validate(tFPhoneNumber.getText())) {
+            showAlertWithoutHeaderText("Số điện thoại của bạn không đúng định dạng");
         } else {
             staffManagenment.add(new Staff(tFName.getText().trim(), tFAddress.getText().trim(), tFEmail.getText().trim(), tFPhoneNumber.getText().trim(), tFUsername.getText().trim(), tFPassword.getText().trim(), cBRole.getValue().trim()));
             resetValue();
@@ -192,6 +203,12 @@ public class StaffManagementView implements Initializable {
                 showAlertWithoutHeaderText("Bạn phải nhập tên đăng nhập");
             } else if (tFPassword.getText().equals("")) {
                 showAlertWithoutHeaderText("Bạn phải nhập mật khẩu");
+            } else if (cBRole.getValue().equals("")) {
+                showAlertWithoutHeaderText("Bạn phải chọn chức vụ cho nhân viên");
+            } else if (!tFEmail.getText().equals("") && !emailValidate.validate(tFEmail.getText())) {
+                showAlertWithoutHeaderText("Email của bạn không đúng định dạng");
+            } else if (!tFPhoneNumber.getText().equals("") && !phoneNumberValidate.validate(tFPhoneNumber.getText())) {
+                showAlertWithoutHeaderText("Số điện thoại của bạn không đúng định dạng");
             } else {
                 staffManagenment.update(tFId.getText(), new Staff(Integer.parseInt(tFId.getText()), tFName.getText(), tFAddress.getText(),
                         tFEmail.getText(), tFPhoneNumber.getText(), tFUsername.getText(), tFPassword.getText(), cBRole.getValue()));

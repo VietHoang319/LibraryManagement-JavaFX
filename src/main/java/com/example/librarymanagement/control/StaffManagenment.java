@@ -24,8 +24,8 @@ public class StaffManagenment implements IManagement<Staff> {
         this.currentStaff = currentStaff;
     }
 
-    static {
-        listStaff.add(new Staff(1, "Ngô Việt Hoàng", "", "", "", "", "", ""));
+    public StaffManagenment() {
+        FileStaffCSV.readFile(listStaff);
     }
 
     @Override
