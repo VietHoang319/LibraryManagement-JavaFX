@@ -1,6 +1,7 @@
 package com.example.librarymanagement.model;
 
 import java.time.LocalDate;
+import java.time.Year;
 
 public class Book {
     private String idBook;
@@ -8,14 +9,14 @@ public class Book {
     private String author;
     private String category;
     private String publishingCompany;
-    private LocalDate publishingYear;
+    private Year publishingYear;
     private int reprintTimes;
     private int numberOfBook;
 
     public Book() {
     }
 
-    public Book(String idBook, String nameBook, String author, String category, String publishingCompany, LocalDate publishingYear, int reprintTimes, int numberOfBook) {
+    public Book(String idBook, String nameBook, String author, String category, String publishingCompany, Year publishingYear, int reprintTimes, int numberOfBook) {
         this.idBook = idBook;
         this.nameBook = nameBook;
         this.author = author;
@@ -28,6 +29,10 @@ public class Book {
 
     public String getIdBook() {
         return idBook;
+    }
+
+    public void setIdBook(String idBook) {
+        this.idBook = idBook;
     }
 
     public String getNameBook() {
@@ -62,11 +67,11 @@ public class Book {
         this.publishingCompany = publishingCompany;
     }
 
-    public LocalDate getPublishingYear() {
+    public Year getPublishingYear() {
         return publishingYear;
     }
 
-    public void setPublishingYear(LocalDate publishingYear) {
+    public void setPublishingYear(Year publishingYear) {
         this.publishingYear = publishingYear;
     }
 
