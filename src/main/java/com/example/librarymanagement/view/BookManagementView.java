@@ -1,7 +1,7 @@
 package com.example.librarymanagement.view;
 
+import com.example.librarymanagement.datetime.DateTimeFormatter;
 import com.example.librarymanagement.control.BookManagenmentControl;
-import com.example.librarymanagement.control.StaffManagenmentControl;
 import com.example.librarymanagement.model.Book;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,6 +11,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Year;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -117,6 +119,11 @@ public class BookManagementView implements Initializable {
         alert.showAndWait();
     }
 
+    private String autoSetId() {
+        LocalDateTime dateTime = LocalDateTime.now();
+        return "B" + DateTimeFormatter.formatDateTime(dateTime);
+    }
+
     @FXML
     public void onAddButtonStaffClick() {
         tFName.setDisable(false);
@@ -131,7 +138,7 @@ public class BookManagementView implements Initializable {
         bEdit.setDisable(true);
         bDelete.setDisable(true);
         resetValue();
-        tFId.setText("");
+        tFId.setText(autoSetId());
     }
 
     @FXML
@@ -141,38 +148,98 @@ public class BookManagementView implements Initializable {
         } else if (tFNumberOfBook.getText().equals("")) {
             showAlert("Bạn phải nhập số lượng sách");
         } else {
-            int reprintTimes;
-            Year publishingYear;
-            if (tFReprintTimes.getText().equals(NULLVALUE)) {
-                reprintTimes = 0;
-            } else {
-                reprintTimes = Integer.parseInt(tFReprintTimes.getText().trim());
+            try {
+                int reprintTimes;
+                Year publishingYear;
+                if (tFReprintTimes.getText().equals(NULLVALUE)) {
+                    reprintTimes = 0;
+                } else {
+                    reprintTimes = Integer.parseInt(tFReprintTimes.getText().trim());
+                }
+                if (tFPublishingYear.getText().equals(NULLVALUE)) {
+                    publishingYear = null;
+                } else {
+                    publishingYear = Year.parse(tFPublishingYear.getText().trim());
+                }
+                bookManagenmentControl.add(new Book(tFId.getText().trim(), tFName.getText().toUpperCase().trim(), tFAuthor.getText().toUpperCase().trim(), tFCategory.getText().trim(),
+                        tFPublishingCompany.getText().toLowerCase().trim(), publishingYear, reprintTimes, Integer.parseInt(tFNumberOfBook.getText().trim())));
+                resetValue();
+                resetForm();
+            } catch (NumberFormatException e) {
+                showAlert("Bạn phải nhập số cho lần xuất bản và số lượng");
             }
-            if (tFPublishingYear.getText().equals(NULLVALUE)) {
-                publishingYear = null;
+
+        }
+    }
+
+    @FXML
+    public void onEditButtonStaffClick() {
+        if(!tFId.getText().equals("")) {
+            if (tFName.getText().equals("")) {
+                showAlert("Bạn phải nhập tên sách");
+            } else if (tFNumberOfBook.getText().equals("")) {
+                showAlert("Bạn phải nhập số lượng sách");
             } else {
-                publishingYear = Year.parse(tFPublishingYear.getText().trim());
+                int reprintTimes;
+                Year publishingYear;
+                if (tFReprintTimes.getText().equals(NULLVALUE)) {
+                    reprintTimes = 0;
+                } else {
+                    reprintTimes = Integer.parseInt(tFReprintTimes.getText().trim());
+                }
+                if (tFPublishingYear.getText().equals(NULLVALUE)) {
+                    publishingYear = null;
+                } else {
+                    publishingYear = Year.parse(tFPublishingYear.getText().trim());
+                }
+                bookManagenmentControl.update(tFId.getText(), new Book(tFId.getText().trim(), tFName.getText().toUpperCase().trim(), tFAuthor.getText().toUpperCase().trim(), tFCategory.getText().trim(),
+                        tFPublishingCompany.getText().toLowerCase().trim(), publishingYear, reprintTimes, Integer.parseInt(tFNumberOfBook.getText().trim())));
+                resetValue();
+                resetForm();
             }
-            bookManagenmentControl.add(new Book(tFId.getText().trim(), tFName.getText().toUpperCase().trim(), tFAuthor.getText().toUpperCase().trim(), tFCategory.getText().trim(),
-                    tFPublishingCompany.getText().toLowerCase().trim(), publishingYear, reprintTimes, Integer.parseInt(tFNumberOfBook.getText().trim())));
+        }
+    }
+
+    @FXML
+    public void onDeleteButtonStaffClick() {
+        if (!tFId.getText().equals("")) {
+            bookManagenmentControl.delete(tFId.getText());
             resetValue();
             resetForm();
         }
     }
 
     @FXML
-    public void onEditButtonStaffClick() {
-
-    }
-
-    @FXML
-    public void onDeleteButtonStaffClick() {
-
-    }
-
-    @FXML
     public void handleRowSelect() {
+        Book row = tVBook.getSelectionModel().getSelectedItem();
+        if (row != null) {
+            tFId.setText(row.getIdBook());
+            tFName.setText(row.getNameBook());
+            tFAuthor.setText(row.getAuthor());
+            tFCategory.setText(row.getCategory());
+            tFPublishingCompany.setText(row.getPublishingCompany());
+            String year;
+            if (String.valueOf(row.getPublishingYear()).equals("null")) {
+                year = "";
+            } else {
+                year = String.valueOf(row.getPublishingYear());
+            }
+            tFPublishingYear.setText(year);
+            tFReprintTimes.setText(String.valueOf(row.getReprintTimes()));
+            tFNumberOfBook.setText(String.valueOf(row.getNumberOfBook()));
+            tFName.setDisable(false);
+            tFAuthor.setDisable(false);
+            tFCategory.setDisable(false);
+            tFPublishingCompany.setDisable(false);
+            tFPublishingYear.setDisable(false);
+            tFReprintTimes.setDisable(false);
+            tFNumberOfBook.setDisable(false);
 
+            bAdd.setDisable(false);
+            bSave.setDisable(true);
+            bEdit.setDisable(false);
+            bDelete.setDisable(false);
+        }
     }
 
     @FXML

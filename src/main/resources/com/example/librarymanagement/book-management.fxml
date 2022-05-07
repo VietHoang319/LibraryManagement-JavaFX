@@ -8,7 +8,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.librarymanagement.view.BookManagementView">
    <center>
       <TableView fx:id="tVBook" onMouseClicked="#handleRowSelect" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -127,6 +126,9 @@
                            <VBox.margin>
                               <Insets bottom="15.0" left="10.0" right="10.0" />
                            </VBox.margin>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
                         </TextField>
                         <Label text="Tên sách*">
                            <font>
@@ -136,10 +138,13 @@
                               <Insets left="10.0" right="10.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="tFName">
+                        <TextField fx:id="tFName" promptText="Nhập tên sách">
                            <VBox.margin>
                               <Insets bottom="15.0" left="10.0" right="10.0" />
                            </VBox.margin>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
                         </TextField>
                         <Label text="Tác giả">
                            <font>
@@ -149,10 +154,13 @@
                               <Insets left="10.0" right="10.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="tFAuthor">
+                        <TextField fx:id="tFAuthor" promptText="Nhập tên tác giả">
                            <VBox.margin>
                               <Insets bottom="15.0" left="10.0" right="10.0" />
                            </VBox.margin>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
                         </TextField>
                         <Label text="Thể loại">
                            <font>
@@ -162,10 +170,13 @@
                               <Insets left="10.0" right="10.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="tFCategory">
+                        <TextField fx:id="tFCategory" promptText="Nhập thể loại">
                            <VBox.margin>
                               <Insets bottom="15.0" left="10.0" right="10.0" />
                            </VBox.margin>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
                         </TextField>
                         <Label text="Nhà xuất bản">
                            <font>
@@ -175,10 +186,13 @@
                               <Insets left="10.0" right="10.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="tFPublishingCompany">
+                        <TextField fx:id="tFPublishingCompany" promptText="Nhập tên nhà xuất bản">
                            <VBox.margin>
                               <Insets bottom="15.0" left="10.0" right="10.0" />
                            </VBox.margin>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
                         </TextField>
                         <Label text="Năm xuất bản">
                            <font>
@@ -188,10 +202,13 @@
                               <Insets left="10.0" right="10.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="tFPublishingYear">
+                        <TextField fx:id="tFPublishingYear" promptText="Nhập năm xuất bản">
                            <VBox.margin>
                               <Insets bottom="15.0" left="10.0" right="10.0" />
                            </VBox.margin>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
                         </TextField>
                         <Label text="Lần xuất bản">
                            <font>
@@ -201,10 +218,13 @@
                               <Insets left="10.0" right="10.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="tFReprintTimes">
+                        <TextField fx:id="tFReprintTimes" promptText="Nhập lần xuất bản">
                            <VBox.margin>
                               <Insets bottom="15.0" left="10.0" right="10.0" />
                            </VBox.margin>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
                         </TextField>
                         <Label text="Số lượng*">
                            <font>
@@ -214,10 +234,13 @@
                               <Insets left="10.0" right="10.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="tFNumberOfBook">
+                        <TextField fx:id="tFNumberOfBook" promptText="Nhập số lượng sách">
                            <VBox.margin>
                               <Insets bottom="15.0" left="10.0" right="10.0" />
                            </VBox.margin>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
                         </TextField>
                      </children>
                   </VBox>
