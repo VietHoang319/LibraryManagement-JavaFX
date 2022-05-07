@@ -58,7 +58,7 @@ public class StaffManagenmentControl implements IManagement<Staff> {
     public List<Staff> findStaffByIdOrName(String inp) {
         List<Staff> listFind = new ArrayList<>();
         for (Staff staff : listStaff) {
-            if (String.valueOf(staff.getIdStaff()).equals(inp) || staff.getNameStaff().equals(inp)) {
+            if (String.valueOf(staff.getIdStaff()).contains(inp) || staff.getNameStaff().contains(inp)) {
                 listFind.add(staff);
             }
         }

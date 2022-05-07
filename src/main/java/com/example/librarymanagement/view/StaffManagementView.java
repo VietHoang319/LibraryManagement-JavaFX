@@ -102,6 +102,7 @@ public class StaffManagementView implements Initializable {
         tFEmail.setText("");
         tFPhoneNumber.setText("");
         cBRole.setValue("");
+        tFFind.setText("");
     }
 
     private void showAlert(String content) {
@@ -179,7 +180,7 @@ public class StaffManagementView implements Initializable {
         } else if (!tFPhoneNumber.getText().equals("") && !phoneNumberValidate.validate(tFPhoneNumber.getText())) {
             showAlert("Số điện thoại của bạn không đúng định dạng");
         } else {
-            staffManagenmentControl.add(new Staff(tFName.getText().trim(), tFAddress.getText().trim(), tFEmail.getText().trim(), tFPhoneNumber.getText().trim(), tFUsername.getText().trim(), tFPassword.getText().trim(), cBRole.getValue().trim()));
+            staffManagenmentControl.add(new Staff(tFName.getText().toUpperCase().trim(), tFAddress.getText().toUpperCase().trim(), tFEmail.getText().trim(), tFPhoneNumber.getText().trim(), tFUsername.getText().trim(), tFPassword.getText().trim(), cBRole.getValue().toUpperCase().trim()));
             resetValue();
             resetForm();
         }
@@ -210,8 +211,8 @@ public class StaffManagementView implements Initializable {
             } else if (!tFPhoneNumber.getText().equals("") && !phoneNumberValidate.validate(tFPhoneNumber.getText())) {
                 showAlert("Số điện thoại của bạn không đúng định dạng");
             } else {
-                staffManagenmentControl.update(tFId.getText(), new Staff(Integer.parseInt(tFId.getText()), tFName.getText(), tFAddress.getText(),
-                        tFEmail.getText(), tFPhoneNumber.getText(), tFUsername.getText(), tFPassword.getText(), cBRole.getValue()));
+                staffManagenmentControl.update(tFId.getText(), new Staff(Integer.parseInt(tFId.getText()), tFName.getText().toUpperCase().trim(), tFAddress.getText().toUpperCase().trim(),
+                        tFEmail.getText().trim(), tFPhoneNumber.getText().trim(), tFUsername.getText().trim(), tFPassword.getText().trim(), cBRole.getValue().toUpperCase().trim()));
                 resetValue();
                 resetForm();
             }
@@ -223,7 +224,7 @@ public class StaffManagementView implements Initializable {
         if (tFFind.getText().equals("")) {
             showDataInTableView(StaffManagenmentControl.getListStaff());
         } else {
-            showDataInTableView(staffManagenmentControl.findStaffByIdOrName(tFFind.getText()));
+            showDataInTableView(staffManagenmentControl.findStaffByIdOrName(tFFind.getText().toUpperCase().trim()));
         }
     }
 

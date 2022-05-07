@@ -25,16 +25,33 @@ public class BookManagenmentControl implements IManagement<Book>{
 
     @Override
     public void update(String id, Book book) {
+        listBook.set(findId(id), book);
         FileBookCSV.writeFile(listBook);
     }
 
     @Override
     public void delete(String id) {
+        listBook.remove(findId(id));
         FileBookCSV.writeFile(listBook);
     }
 
     @Override
     public int findId(String id) {
-        return 0;
+        for (int i = 0; i < listBook.size(); i++) {
+            if (listBook.get(i).getIdBook().equals(id)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public List<Book> findBookByIdOrNameOrCompanyOrAuthor(String inp) {
+        List<Book> list = new ArrayList<>();
+        for(Book book : listBook) {
+            if (book.getIdBook().contains(inp) || book.getNameBook().contains(inp) || book.getAuthor().contains(inp) || book.getPublishingCompany().contains(inp)) {
+                list.add(book);
+            }
+        }
+        return list;
     }
 }

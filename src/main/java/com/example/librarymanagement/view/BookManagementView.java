@@ -1,6 +1,7 @@
 package com.example.librarymanagement.view;
 
 import com.example.librarymanagement.control.BookManagenmentControl;
+import com.example.librarymanagement.control.StaffManagenmentControl;
 import com.example.librarymanagement.model.Book;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -102,6 +103,7 @@ public class BookManagementView implements Initializable {
         tFPublishingYear.setText("");
         tFReprintTimes.setText("");
         tFNumberOfBook.setText("");
+        tFFind.setText("");
     }
 
     private void showAlert(String content) {
@@ -144,15 +146,15 @@ public class BookManagementView implements Initializable {
             if (tFReprintTimes.getText().equals(NULLVALUE)) {
                 reprintTimes = 0;
             } else {
-                reprintTimes = Integer.parseInt(tFReprintTimes.getText());
+                reprintTimes = Integer.parseInt(tFReprintTimes.getText().trim());
             }
             if (tFPublishingYear.getText().equals(NULLVALUE)) {
                 publishingYear = null;
             } else {
-                publishingYear = Year.parse(tFPublishingYear.getText());
+                publishingYear = Year.parse(tFPublishingYear.getText().trim());
             }
-            bookManagenmentControl.add(new Book(tFId.getText(), tFName.getText(), tFAuthor.getText(), tFCategory.getText(),
-                    tFPublishingCompany.getText(), publishingYear, reprintTimes, Integer.parseInt(tFNumberOfBook.getText())));
+            bookManagenmentControl.add(new Book(tFId.getText().trim(), tFName.getText().toUpperCase().trim(), tFAuthor.getText().toUpperCase().trim(), tFCategory.getText().trim(),
+                    tFPublishingCompany.getText().toLowerCase().trim(), publishingYear, reprintTimes, Integer.parseInt(tFNumberOfBook.getText().trim())));
             resetValue();
             resetForm();
         }
@@ -175,9 +177,12 @@ public class BookManagementView implements Initializable {
 
     @FXML
     public void onFindButtonStaffClick() {
-
+        if (tFFind.getText().equals("")) {
+            showDataInTableView(BookManagenmentControl.getListStaff());
+        } else {
+            showDataInTableView(bookManagenmentControl.findBookByIdOrNameOrCompanyOrAuthor(tFFind.getText().toLowerCase().trim()));
+        }
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
