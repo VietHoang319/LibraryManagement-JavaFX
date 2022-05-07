@@ -1,6 +1,6 @@
 package com.example.librarymanagement.view;
 
-import com.example.librarymanagement.control.StaffManagenment;
+import com.example.librarymanagement.control.StaffManagenmentControl;
 import com.example.librarymanagement.model.Staff;
 import com.example.librarymanagement.validate.EmailValidate;
 import com.example.librarymanagement.validate.PhoneNumberValidate;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class StaffManagementView implements Initializable {
-    private final StaffManagenment staffManagenment = new StaffManagenment();
+    private final StaffManagenmentControl staffManagenmentControl = new StaffManagenmentControl();
 
     private final EmailValidate emailValidate = new EmailValidate();
     private final PhoneNumberValidate phoneNumberValidate = new PhoneNumberValidate();
@@ -90,7 +90,7 @@ public class StaffManagementView implements Initializable {
         bDelete.setDisable(true);
         bSave.setDisable(true);
         cBRole.setItems(roles);
-        showDataInTableView(StaffManagenment.getListStaff());
+        showDataInTableView(StaffManagenmentControl.getListStaff());
     }
 
     private void resetValue() {
@@ -104,7 +104,7 @@ public class StaffManagementView implements Initializable {
         cBRole.setValue("");
     }
 
-    private void showAlertWithoutHeaderText(String content) {
+    private void showAlert(String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Warning alert");
 
@@ -157,29 +157,29 @@ public class StaffManagementView implements Initializable {
         bDelete.setDisable(true);
         resetValue();
         int sizeOfListEqualZero = 0;
-        if (StaffManagenment.getListStaff().size() == sizeOfListEqualZero) {
+        if (StaffManagenmentControl.getListStaff().size() == sizeOfListEqualZero) {
             tFId.setText("0");
         } else {
-            tFId.setText(String.valueOf(StaffManagenment.getListStaff().get(StaffManagenment.getListStaff().size() - 1).getIdStaff() + 1));
+            tFId.setText(String.valueOf(StaffManagenmentControl.getListStaff().get(StaffManagenmentControl.getListStaff().size() - 1).getIdStaff() + 1));
         }
     }
 
     @FXML
     protected void onSaveButtonStaffClick() {
         if (tFName.getText().equals("")) {
-            showAlertWithoutHeaderText("Bạn phải nhập tên nhân viên");
+            showAlert("Bạn phải nhập tên nhân viên");
         } else if (tFUsername.getText().equals("")) {
-            showAlertWithoutHeaderText("Bạn phải nhập tên đăng nhập");
+            showAlert("Bạn phải nhập tên đăng nhập");
         } else if (tFPassword.getText().equals("")) {
-            showAlertWithoutHeaderText("Bạn phải nhập mật khẩu");
+            showAlert("Bạn phải nhập mật khẩu");
         } else if (cBRole.getValue().equals("")) {
-            showAlertWithoutHeaderText("Bạn phải chọn chức vụ cho nhân viên");
+            showAlert("Bạn phải chọn chức vụ cho nhân viên");
         } else if (!tFEmail.getText().equals("") && !emailValidate.validate(tFEmail.getText())) {
-            showAlertWithoutHeaderText("Email của bạn không đúng định dạng");
+            showAlert("Email của bạn không đúng định dạng");
         } else if (!tFPhoneNumber.getText().equals("") && !phoneNumberValidate.validate(tFPhoneNumber.getText())) {
-            showAlertWithoutHeaderText("Số điện thoại của bạn không đúng định dạng");
+            showAlert("Số điện thoại của bạn không đúng định dạng");
         } else {
-            staffManagenment.add(new Staff(tFName.getText().trim(), tFAddress.getText().trim(), tFEmail.getText().trim(), tFPhoneNumber.getText().trim(), tFUsername.getText().trim(), tFPassword.getText().trim(), cBRole.getValue().trim()));
+            staffManagenmentControl.add(new Staff(tFName.getText().trim(), tFAddress.getText().trim(), tFEmail.getText().trim(), tFPhoneNumber.getText().trim(), tFUsername.getText().trim(), tFPassword.getText().trim(), cBRole.getValue().trim()));
             resetValue();
             resetForm();
         }
@@ -188,7 +188,7 @@ public class StaffManagementView implements Initializable {
     @FXML
     protected void onDeleteButtonStaffClick() {
         if (!tFId.getText().equals("")) {
-            staffManagenment.delete(tFId.getText());
+            staffManagenmentControl.delete(tFId.getText());
             resetValue();
             resetForm();
         }
@@ -198,19 +198,19 @@ public class StaffManagementView implements Initializable {
     protected void onEditButtonStaffClick() {
         if (!tFId.getText().equals("")) {
             if (tFName.getText().equals("")) {
-                showAlertWithoutHeaderText("Bạn phải nhập tên nhân viên");
+                showAlert("Bạn phải nhập tên nhân viên");
             } else if (tFUsername.getText().equals("")) {
-                showAlertWithoutHeaderText("Bạn phải nhập tên đăng nhập");
+                showAlert("Bạn phải nhập tên đăng nhập");
             } else if (tFPassword.getText().equals("")) {
-                showAlertWithoutHeaderText("Bạn phải nhập mật khẩu");
+                showAlert("Bạn phải nhập mật khẩu");
             } else if (cBRole.getValue().equals("")) {
-                showAlertWithoutHeaderText("Bạn phải chọn chức vụ cho nhân viên");
+                showAlert("Bạn phải chọn chức vụ cho nhân viên");
             } else if (!tFEmail.getText().equals("") && !emailValidate.validate(tFEmail.getText())) {
-                showAlertWithoutHeaderText("Email của bạn không đúng định dạng");
+                showAlert("Email của bạn không đúng định dạng");
             } else if (!tFPhoneNumber.getText().equals("") && !phoneNumberValidate.validate(tFPhoneNumber.getText())) {
-                showAlertWithoutHeaderText("Số điện thoại của bạn không đúng định dạng");
+                showAlert("Số điện thoại của bạn không đúng định dạng");
             } else {
-                staffManagenment.update(tFId.getText(), new Staff(Integer.parseInt(tFId.getText()), tFName.getText(), tFAddress.getText(),
+                staffManagenmentControl.update(tFId.getText(), new Staff(Integer.parseInt(tFId.getText()), tFName.getText(), tFAddress.getText(),
                         tFEmail.getText(), tFPhoneNumber.getText(), tFUsername.getText(), tFPassword.getText(), cBRole.getValue()));
                 resetValue();
                 resetForm();
@@ -221,9 +221,9 @@ public class StaffManagementView implements Initializable {
     @FXML
     protected void onFindButtonStaffClick() {
         if (tFFind.getText().equals("")) {
-            showDataInTableView(StaffManagenment.getListStaff());
+            showDataInTableView(StaffManagenmentControl.getListStaff());
         } else {
-            showDataInTableView(staffManagenment.findStaffByIdOrName(tFFind.getText()));
+            showDataInTableView(staffManagenmentControl.findStaffByIdOrName(tFFind.getText()));
         }
     }
 

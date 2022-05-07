@@ -4,11 +4,10 @@ package com.example.librarymanagement.control;
 import com.example.librarymanagement.file_handling.FileStaffCSV;
 import com.example.librarymanagement.model.Staff;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StaffManagenment implements IManagement<Staff> {
+public class StaffManagenmentControl implements IManagement<Staff> {
     private static final List<Staff> listStaff = new ArrayList<>();
     private Staff currentStaff;
 
@@ -24,7 +23,7 @@ public class StaffManagenment implements IManagement<Staff> {
         this.currentStaff = currentStaff;
     }
 
-    public StaffManagenment() {
+    public StaffManagenmentControl() {
         FileStaffCSV.readFile(listStaff);
     }
 

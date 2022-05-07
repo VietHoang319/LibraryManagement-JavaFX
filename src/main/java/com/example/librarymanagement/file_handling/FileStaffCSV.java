@@ -1,6 +1,5 @@
 package com.example.librarymanagement.file_handling;
 
-import com.example.librarymanagement.control.StaffManagenment;
 import com.example.librarymanagement.model.Staff;
 
 import java.io.*;
@@ -12,7 +11,7 @@ public class FileStaffCSV {
 
     public static void writeFile(List<Staff> list) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("E:\\CodeGym\\LibraryManagement\\src\\main\\java\\com\\example\\librarymanagement\\database\\StaffData.csv"))) {
-            bufferedWriter.write("id, Name, Address, Email, Phone number, Username, Password, Role");
+            bufferedWriter.write("ID, NAME, ADDRESS, EMAIL, PHONE NUMBER, USERNAME, PASSWORD, ROLE");
             bufferedWriter.newLine();
             for (Staff staff: list) {
                 bufferedWriter.write(staff.getIdStaff() + "," + staff.getNameStaff() + "," + staff.getAddressStaff() + ","
