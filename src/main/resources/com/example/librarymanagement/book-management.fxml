@@ -12,7 +12,7 @@
    <center>
       <TableView fx:id="tVBook" onMouseClicked="#handleRowSelect" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="idCol" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="idCol" prefWidth="75.0" text="MÃ SÁCH" />
           <TableColumn fx:id="nameCol" prefWidth="75.0" text="TÊN SÁCH" />
             <TableColumn fx:id="authorCol" prefWidth="75.0" text="TÁC GIẢ" />
             <TableColumn fx:id="categoryCol" prefWidth="75.0" text="THỂ LOẠI" />
@@ -50,22 +50,22 @@
                <children>
                   <GridPane alignment="CENTER" prefHeight="112.0" prefWidth="397.0">
                      <children>
-                        <Button fx:id="bAdd" mnemonicParsing="false" onAction="#onAddButtonStaffClick" prefHeight="40.0" prefWidth="180.0" text="Thêm nhân viên">
+                        <Button fx:id="bAdd" mnemonicParsing="false" onAction="#onAddButtonBookClick" prefHeight="40.0" prefWidth="180.0" text="Thêm sách">
                            <GridPane.margin>
                               <Insets left="10.0" right="10.0" />
                            </GridPane.margin>
                         </Button>
-                        <Button fx:id="bSave" mnemonicParsing="false" onAction="#onSaveButtonStaffClick" prefHeight="40.0" prefWidth="180.0" text="Lưu thông tin nhân viên" GridPane.columnIndex="1">
+                        <Button fx:id="bSave" mnemonicParsing="false" onAction="#onSaveButtonBookClick" prefHeight="40.0" prefWidth="180.0" text="Lưu thông tin sách" GridPane.columnIndex="1">
                            <GridPane.margin>
                               <Insets left="10.0" right="10.0" />
                            </GridPane.margin>
                         </Button>
-                        <Button fx:id="bEdit" mnemonicParsing="false" onAction="#onEditButtonStaffClick" prefHeight="40.0" prefWidth="180.0" text="Sửa thông tin nhân viên" GridPane.rowIndex="1">
+                        <Button fx:id="bEdit" mnemonicParsing="false" onAction="#onEditButtonBookClick" prefHeight="40.0" prefWidth="180.0" text="Sửa thông tin sách" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets left="10.0" right="10.0" />
                            </GridPane.margin>
                         </Button>
-                        <Button fx:id="bDelete" mnemonicParsing="false" onAction="#onDeleteButtonStaffClick" prefHeight="40.0" prefWidth="180.0" text="Xóa nhân viên" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Button fx:id="bDelete" mnemonicParsing="false" onAction="#onDeleteButtonBookClick" prefHeight="40.0" prefWidth="180.0" text="Xóa sách" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets left="10.0" right="10.0" />
                            </GridPane.margin>
@@ -82,12 +82,12 @@
                   </GridPane>
                   <GridPane GridPane.rowIndex="1">
                      <children>
-                        <TextField fx:id="tFFind" promptText="Nhập mã số hoặc tên cần tìm kiếm">
+                        <TextField fx:id="tFFind" promptText="Nhập mã số, tên, nhà xuất bản cần tìm kiếm">
                            <GridPane.margin>
                               <Insets bottom="15.0" left="10.0" right="10.0" top="15.0" />
                            </GridPane.margin>
                         </TextField>
-                        <Button fx:id="bFind" mnemonicParsing="false" onAction="#onFindButtonStaffClick" prefWidth="150.0" text="Tìm kiếm" GridPane.columnIndex="1">
+                        <Button fx:id="bFind" mnemonicParsing="false" onAction="#onFindButtonBookClick" prefWidth="150.0" text="Tìm kiếm" GridPane.columnIndex="1">
                            <GridPane.margin>
                               <Insets left="10.0" right="10.0" />
                            </GridPane.margin>
@@ -122,7 +122,7 @@
                               <Insets left="10.0" right="10.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="tFId" disable="true">
+                        <TextField fx:id="tFId" disable="true" prefHeight="25.0" prefWidth="357.0">
                            <VBox.margin>
                               <Insets bottom="15.0" left="10.0" right="10.0" />
                            </VBox.margin>

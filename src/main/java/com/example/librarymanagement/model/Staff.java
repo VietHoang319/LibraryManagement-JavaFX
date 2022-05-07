@@ -1,7 +1,7 @@
 package com.example.librarymanagement.model;
 
 
-import com.example.librarymanagement.control.StaffManagenmentControl;
+import com.example.librarymanagement.control.StaffManagementControl;
 
 public class Staff {
     private int idStaff;
@@ -18,10 +18,10 @@ public class Staff {
 
     public Staff(String nameStaff, String addressStaff, String emailStaff, String phoneNumberStaff, String username, String password, String role) {
         int sizeOfListEqualZero = 0;
-        if (StaffManagenmentControl.getListStaff().size() == sizeOfListEqualZero) {
+        if (StaffManagementControl.getListStaff().size() == sizeOfListEqualZero) {
             this.idStaff = 0;
         } else {
-            this.idStaff = StaffManagenmentControl.getListStaff().get(StaffManagenmentControl.getListStaff().size() - 1).getIdStaff() + 1;
+            this.idStaff = StaffManagementControl.getListStaff().get(StaffManagementControl.getListStaff().size() - 1).getIdStaff() + 1;
         }
         this.nameStaff = nameStaff;
         this.addressStaff = addressStaff;

@@ -7,7 +7,7 @@ import com.example.librarymanagement.model.Staff;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StaffManagenmentControl implements IManagement<Staff> {
+public class StaffManagementControl implements IManagement<Staff> {
     private static final List<Staff> listStaff = new ArrayList<>();
     private Staff currentStaff;
 
@@ -23,7 +23,7 @@ public class StaffManagenmentControl implements IManagement<Staff> {
         this.currentStaff = currentStaff;
     }
 
-    public StaffManagenmentControl() {
+    public StaffManagementControl() {
         FileStaffCSV.readFile(listStaff);
     }
 

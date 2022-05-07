@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Year;
 import java.util.List;
@@ -111,11 +110,8 @@ public class BookManagementView implements Initializable {
     private void showAlert(String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Warning alert");
-
-        // Header Text: null
         alert.setHeaderText(null);
         alert.setContentText(content);
-
         alert.showAndWait();
     }
 
@@ -125,7 +121,7 @@ public class BookManagementView implements Initializable {
     }
 
     @FXML
-    public void onAddButtonStaffClick() {
+    public void onAddButtonBookClick() {
         tFName.setDisable(false);
         tFAuthor.setDisable(false);
         tFCategory.setDisable(false);
@@ -142,7 +138,7 @@ public class BookManagementView implements Initializable {
     }
 
     @FXML
-    public void onSaveButtonStaffClick() {
+    public void onSaveButtonBookClick() {
         if (tFName.getText().equals("")) {
             showAlert("Bạn phải nhập tên sách");
         } else if (tFNumberOfBook.getText().equals("")) {
@@ -173,7 +169,7 @@ public class BookManagementView implements Initializable {
     }
 
     @FXML
-    public void onEditButtonStaffClick() {
+    public void onEditButtonBookClick() {
         if(!tFId.getText().equals("")) {
             if (tFName.getText().equals("")) {
                 showAlert("Bạn phải nhập tên sách");
@@ -201,7 +197,7 @@ public class BookManagementView implements Initializable {
     }
 
     @FXML
-    public void onDeleteButtonStaffClick() {
+    public void onDeleteButtonBookClick() {
         if (!tFId.getText().equals("")) {
             bookManagenmentControl.delete(tFId.getText());
             resetValue();
@@ -243,7 +239,7 @@ public class BookManagementView implements Initializable {
     }
 
     @FXML
-    public void onFindButtonStaffClick() {
+    public void onFindButtonBookClick() {
         if (tFFind.getText().equals("")) {
             showDataInTableView(BookManagenmentControl.getListStaff());
         } else {
