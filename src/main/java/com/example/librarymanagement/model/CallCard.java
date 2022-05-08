@@ -1,20 +1,20 @@
 package com.example.librarymanagement.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class CallCard {
     private String idCallCard;
-    private String idReader;
-    private int idStaff;
-    private LocalDate bookLoanDay;
+    private Reader reader;
+    private Staff staff;
+    private LocalDateTime bookLoanDay;
 
     public CallCard() {
     }
 
-    public CallCard(String idCallCard, String idReader, int idStaff, LocalDate bookLoanDay) {
+    public CallCard(String idCallCard, Reader reader, Staff staff, LocalDateTime bookLoanDay) {
         this.idCallCard = idCallCard;
-        this.idReader = idReader;
-        this.idStaff = idStaff;
+        this.reader = reader;
+        this.staff = staff;
         this.bookLoanDay = bookLoanDay;
     }
 
@@ -26,27 +26,27 @@ public class CallCard {
         this.idCallCard = idCallCard;
     }
 
-    public String getIdReader() {
-        return idReader;
+    public Reader getReader() {
+        return reader;
     }
 
-    public void setIdReader(String idReader) {
-        this.idReader = idReader;
+    public void setReader(Reader reader) {
+        this.reader = reader;
     }
 
-    public int getIdStaff() {
-        return idStaff;
+    public Staff getStaff() {
+        return staff;
     }
 
-    public void setIdStaff(int idStaff) {
-        this.idStaff = idStaff;
+    public void setStaff(Staff staff) {
+        this.staff = staff;
     }
 
-    public LocalDate getBookLoanDay() {
+    public LocalDateTime getBookLoanDay() {
         return bookLoanDay;
     }
 
-    public void setBookLoanDay(LocalDate bookLoanDay) {
+    public void setBookLoanDay(LocalDateTime bookLoanDay) {
         this.bookLoanDay = bookLoanDay;
     }
 }

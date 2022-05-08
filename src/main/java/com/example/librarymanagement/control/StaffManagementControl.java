@@ -35,18 +35,18 @@ public class StaffManagementControl implements IManagement<Staff> {
 
     @Override
     public void update(String id, Staff staff) {
-        listStaff.set(findId(id), staff);
+        listStaff.set(findIndexById(id), staff);
         FileStaffCSV.writeFile(listStaff);
     }
 
     @Override
     public void delete(String id) {
-        listStaff.remove(findId(id));
+        listStaff.remove(findIndexById(id));
         FileStaffCSV.writeFile(listStaff);
     }
 
     @Override
-    public int findId(String id) {
+    public int findIndexById(String id) {
         for (int i = 0; i < listStaff.size(); i++) {
             if (listStaff.get(i).getIdStaff() == Integer.parseInt(id)) {
                 return i;
@@ -63,5 +63,16 @@ public class StaffManagementControl implements IManagement<Staff> {
             }
         }
         return listFind;
+    }
+
+    public boolean Login(String username, String password) {
+        boolean check;
+        for (Staff staff : listStaff) {
+            if (staff.getUsername().equals(username) && staff.getPassword().equals(password)) {
+                setCurrentStaff(staff);
+                return check = true;
+            }
+        }
+        return check = false;
     }
 }

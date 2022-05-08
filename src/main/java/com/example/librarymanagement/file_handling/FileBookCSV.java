@@ -10,7 +10,7 @@ public class FileBookCSV {
     public static final String NULLVALUE = "";
 
     public static void writeFile(List<Book> list) {
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("E:\\CodeGym\\LibraryManagement\\src\\main\\java\\com\\example\\librarymanagement\\database\\BookData.csv"))) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src\\main\\java\\com\\example\\librarymanagement\\database\\BookData.csv"))) {
             bufferedWriter.write("ID, NAME, AUTHOR, CATEGORY, PUBLISHING COMPANY, PUBLISHING YEAR, REPRINT TIMES, NUMBER OF BOOK");
             bufferedWriter.newLine();
             for (Book book: list) {
@@ -25,7 +25,7 @@ public class FileBookCSV {
 
     public static void readFile(List<Book> list) {
         String line = "";
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("E:\\CodeGym\\LibraryManagement\\src\\main\\java\\com\\example\\librarymanagement\\database\\BookData.csv"))){
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("src\\main\\java\\com\\example\\librarymanagement\\database\\BookData.csv"))){
             bufferedReader.readLine();
             while (true) {
                 line = bufferedReader.readLine();

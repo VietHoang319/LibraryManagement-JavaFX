@@ -25,18 +25,18 @@ public class BookManagenmentControl implements IManagement<Book>{
 
     @Override
     public void update(String id, Book book) {
-        listBook.set(findId(id), book);
+        listBook.set(findIndexById(id), book);
         FileBookCSV.writeFile(listBook);
     }
 
     @Override
     public void delete(String id) {
-        listBook.remove(findId(id));
+        listBook.remove(findIndexById(id));
         FileBookCSV.writeFile(listBook);
     }
 
     @Override
-    public int findId(String id) {
+    public int findIndexById(String id) {
         for (int i = 0; i < listBook.size(); i++) {
             if (listBook.get(i).getIdBook().equals(id)) {
                 return i;

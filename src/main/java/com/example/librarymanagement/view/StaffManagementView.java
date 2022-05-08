@@ -16,11 +16,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class StaffManagementView implements Initializable {
-    private final StaffManagementControl staffManagementControl = new StaffManagementControl();
-
+    private final StaffManagementControl staffManagementControl = MenuView.staffManagementControl;
     private final EmailValidate emailValidate = new EmailValidate();
     private final PhoneNumberValidate phoneNumberValidate = new PhoneNumberValidate();
-    private final ObservableList<String> roles = FXCollections.observableArrayList("ADMIN", "NHÂN VIÊN");
+    private final ObservableList<String> roles = FXCollections.observableArrayList("QUẢN LÝ", "THỦ KHO", "NHÂN VIÊN");
 
     @FXML
     private TextField tFId;

@@ -1,42 +1,42 @@
 package com.example.librarymanagement.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class CallCardInfor {
-    private String idCallCard;
-    private String idBook;
-    private LocalDate ReturnDeadline;
+    private CallCard callCard;
+    private Book book;
+    private LocalDateTime ReturnDeadline;
 
     public CallCardInfor() {
     }
 
-    public CallCardInfor(String idCallCard, String idBook, LocalDate returnDeadline) {
-        this.idCallCard = idCallCard;
-        this.idBook = idBook;
+    public CallCardInfor(CallCard callCard, Book book, LocalDateTime returnDeadline) {
+        this.callCard = callCard;
+        this.book = book;
         ReturnDeadline = returnDeadline;
     }
 
-    public String getIdCallCard() {
-        return idCallCard;
+    public CallCard getCallCard() {
+        return callCard;
     }
 
-    public void setIdCallCard(String idCallCard) {
-        this.idCallCard = idCallCard;
+    public void setCallCard(CallCard callCard) {
+        this.callCard = callCard;
     }
 
-    public String getIdBook() {
-        return idBook;
+    public Book getBook() {
+        return book;
     }
 
-    public void setIdBook(String idBook) {
-        this.idBook = idBook;
+    public void setBook(Book book) {
+        this.book = book;
     }
 
-    public LocalDate getReturnDeadline() {
+    public LocalDateTime getReturnDeadline() {
         return ReturnDeadline;
     }
 
-    public void setReturnDeadline(LocalDate returnDeadline) {
+    public void setReturnDeadline(LocalDateTime returnDeadline) {
         ReturnDeadline = returnDeadline;
     }
 }

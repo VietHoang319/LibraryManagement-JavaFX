@@ -3,7 +3,6 @@ package com.example.librarymanagement.control;
 import com.example.librarymanagement.file_handling.FileReaderCSV;
 import com.example.librarymanagement.model.Reader;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,18 +27,18 @@ public class ReaderManagementControl implements IManagement<Reader>{
 
     @Override
     public void update(String id, Reader reader) {
-        listReader.set(findId(id), reader);
+        listReader.set(findIndexById(id), reader);
         FileReaderCSV.writeFile(listReader);
     }
 
     @Override
     public void delete(String id) {
-        listReader.remove(findId(id));
+        listReader.remove(findIndexById(id));
         FileReaderCSV.writeFile(listReader);
     }
 
     @Override
-    public int findId(String id) {
+    public int findIndexById(String id) {
         for (int i = 0; i < listReader.size(); i++) {
             if (listReader.get(i).getIdReader().equals(id)) {
                 return i;
@@ -69,7 +68,7 @@ public class ReaderManagementControl implements IManagement<Reader>{
     }
 
     public void extendExpiry(String id, Reader reader) {
-        listReader.set(findId(id), reader);
+        listReader.set(findIndexById(id), reader);
         FileReaderCSV.writeFile(listReader);
     }
 }
