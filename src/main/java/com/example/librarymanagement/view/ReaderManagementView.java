@@ -1,7 +1,6 @@
 package com.example.librarymanagement.view;
 
 import com.example.librarymanagement.control.ReaderManagementControl;
-import com.example.librarymanagement.control.StaffManagementControl;
 import com.example.librarymanagement.datetime.DateTimeFormatter;
 import com.example.librarymanagement.model.Reader;
 import com.example.librarymanagement.validate.EmailValidate;
@@ -65,7 +64,7 @@ public class ReaderManagementView implements Initializable {
     @FXML
     private TableColumn<Reader, String> phoneNumberCol;
     @FXML
-    private TableColumn<Reader, String> expiryCol;
+    private TableColumn<Reader, LocalDateTime> expiryCol;
     @FXML
     private TableColumn<Reader, Boolean> lockCol;
 
@@ -76,7 +75,7 @@ public class ReaderManagementView implements Initializable {
         addressCol.setCellValueFactory(new PropertyValueFactory<Reader, String>("addressReader"));
         emailCol.setCellValueFactory(new PropertyValueFactory<Reader, String>("emailReader"));
         phoneNumberCol.setCellValueFactory(new PropertyValueFactory<Reader, String>("phoneNumber"));
-        expiryCol.setCellValueFactory(new PropertyValueFactory<Reader, String>("expiry"));
+        expiryCol.setCellValueFactory(new PropertyValueFactory<Reader, LocalDateTime>("expiry"));
         lockCol.setCellValueFactory(new PropertyValueFactory<Reader, Boolean>("lock"));
         tVReader.setItems(listReader);
     }
@@ -115,7 +114,7 @@ public class ReaderManagementView implements Initializable {
 
     private String autoSetId() {
         LocalDateTime dateTime = LocalDateTime.now();
-        return "R" + DateTimeFormatter.formatDateTime(dateTime);
+        return "R" + DateTimeFormatter.formatDateTime(dateTime, DateTimeFormatter.getPatternDatetimeCreateId());
     }
 
     @FXML
@@ -126,6 +125,7 @@ public class ReaderManagementView implements Initializable {
             tFName.setText(row.getNameReader());
             tFAddress.setText(row.getAddressReader());
             tFExpiry.setText(String.valueOf(row.getExpiry()));
+            tFExpiry.setText(DateTimeFormatter.formatDateTime(row.getExpiry(), DateTimeFormatter.getPatternDatetime()));
             if (row.isLock()) {
                 tFLock.setText(READER_IS_LOCK);
             } else {
@@ -161,7 +161,7 @@ public class ReaderManagementView implements Initializable {
         bExtend.setDisable(true);
         resetValue();
         tFId.setText(autoSetId());
-        tFExpiry.setText(String.valueOf(dateTime));
+        tFExpiry.setText(DateTimeFormatter.formatDateTime(dateTime.plusMinutes(5), DateTimeFormatter.getPatternDatetime()));
         tFLock.setText(READER_IS_NOT_LOCK);
     }
 
@@ -176,7 +176,7 @@ public class ReaderManagementView implements Initializable {
                 showAlert("Số điện thoại của bạn không đúng định dạng");
             } else {
                 readerManagementControl.add(new Reader(tFId.getText(), tFName.getText(), tFAddress.getText(), tFEmail.getText(),
-                        tFPhoneNumber.getText(), LocalDateTime.parse(tFExpiry.getText()), false));
+                        tFPhoneNumber.getText(), DateTimeFormatter.parseDatetime(tFExpiry.getText(), DateTimeFormatter.getPatternDatetime()), false));
                 resetValue();
                 resetForm();
             }
@@ -193,8 +193,14 @@ public class ReaderManagementView implements Initializable {
             } else if (!tFPhoneNumber.getText().equals("") && !phoneNumberValidate.validate(tFPhoneNumber.getText())) {
                 showAlert("Số điện thoại của bạn không đúng định dạng");
             } else {
+                boolean check;
+                if (tFLock.getText().equals(READER_IS_LOCK)) {
+                    check = true;
+                } else {
+                    check = false;
+                }
                 readerManagementControl.update(tFId.getText(), new Reader(tFId.getText(), tFName.getText(), tFAddress.getText(), tFEmail.getText(),
-                        tFPhoneNumber.getText(), LocalDateTime.parse(tFExpiry.getText()), false));
+                        tFPhoneNumber.getText(), DateTimeFormatter.parseDatetime(tFExpiry.getText(), DateTimeFormatter.getPatternDatetime()), check));
                 resetValue();
                 resetForm();
             }
@@ -221,7 +227,11 @@ public class ReaderManagementView implements Initializable {
 
     @FXML
     protected void onExtendButtonReaderClick() {
-
+        LocalDateTime localDateTime = LocalDateTime.now();
+        readerManagementControl.extendExpiry(tFId.getText(),new Reader(tFId.getText(), tFName.getText(), tFAddress.getText(), tFEmail.getText(),
+                tFPhoneNumber.getText(), localDateTime.plusMinutes(5), false));
+        resetValue();
+        resetForm();
     }
 
     @Override

@@ -117,7 +117,7 @@ public class BookManagementView implements Initializable {
 
     private String autoSetId() {
         LocalDateTime dateTime = LocalDateTime.now();
-        return "B" + DateTimeFormatter.formatDateTime(dateTime);
+        return "B" + DateTimeFormatter.formatDateTime(dateTime, DateTimeFormatter.getPatternDatetimeCreateId());
     }
 
     @FXML

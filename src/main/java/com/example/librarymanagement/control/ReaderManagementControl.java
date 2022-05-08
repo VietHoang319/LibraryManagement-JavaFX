@@ -2,8 +2,9 @@ package com.example.librarymanagement.control;
 
 import com.example.librarymanagement.file_handling.FileReaderCSV;
 import com.example.librarymanagement.model.Reader;
-import com.example.librarymanagement.model.Staff;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class ReaderManagementControl implements IManagement<Reader>{
 
     public ReaderManagementControl() {
         FileReaderCSV.readFile(listReader);
+        autoSetLock();
     }
 
     public static List<Reader> getListReader() {
@@ -54,5 +56,20 @@ public class ReaderManagementControl implements IManagement<Reader>{
             }
         }
         return listFind;
+    }
+
+    public void autoSetLock() {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        for (Reader reader : listReader) {
+            if(reader.getExpiry().isEqual(localDateTime) || !reader.getExpiry().isAfter(localDateTime)) {
+                reader.setLock(true);
+            }
+        }
+        FileReaderCSV.writeFile(listReader);
+    }
+
+    public void extendExpiry(String id, Reader reader) {
+        listReader.set(findId(id), reader);
+        FileReaderCSV.writeFile(listReader);
     }
 }
