@@ -412,7 +412,7 @@
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="tFNumberLoadBook" disable="true" prefHeight="37.0" prefWidth="356.0">
+                              <TextField fx:id="tFNumberLoanBook" disable="true" prefHeight="37.0" prefWidth="356.0">
                                  <font>
                                     <Font size="16.0" />
                                  </font>

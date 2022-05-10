@@ -148,7 +148,7 @@ public class BookManagementView implements Initializable {
                 int reprintTimes;
                 Year publishingYear;
                 if (tFReprintTimes.getText().equals(NULLVALUE)) {
-                    reprintTimes = 0;
+                    reprintTimes = 1;
                 } else {
                     reprintTimes = Integer.parseInt(tFReprintTimes.getText().trim());
                 }

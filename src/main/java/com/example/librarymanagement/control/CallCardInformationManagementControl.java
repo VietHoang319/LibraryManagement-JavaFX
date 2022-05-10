@@ -21,6 +21,10 @@ public class CallCardInformationManagementControl {
         listCallCardInformation.add(callCardInformation);
     }
 
+    public void deleteCallCardInfor(String inp) {
+        listCallCardInformation.removeAll(findCallCardInforById(inp));
+    }
+
     public List<CallCardInfor> findCallCardInforById(String inp) {
         List<CallCardInfor> list = new ArrayList<>();
         for (CallCardInfor callCardInfor: listCallCardInformation) {

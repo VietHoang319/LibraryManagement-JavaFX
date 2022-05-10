@@ -20,4 +20,26 @@ public class CallCardManagementControl {
     public void addCallCard(CallCard callCard) {
         listCallCard.add(callCard);
     }
+
+    public void deleteCallCard(String id) {
+        listCallCard.remove(findIndexById(id));
+    }
+
+    public int findIndexById(String id) {
+        for (int i = 0; i < listCallCard.size(); i++) {
+            if (listCallCard.get(i).getIdCallCard().equals(id)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public CallCard findCallCardById(String id) {
+        int index = findIndexById(id);
+        if (index == -1) {
+            return null;
+        } else {
+            return listCallCard.get(index);
+        }
+    }
 }

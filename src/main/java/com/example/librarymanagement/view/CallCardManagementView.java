@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class CallCardManagementView implements Initializable {
+    public static final String NULL_VALUE = "";
     private final ReaderManagementControl readerManagementControl = new ReaderManagementControl();
     private final BookManagementControl bookManagementControl = new BookManagementControl();
     private final StaffManagementControl staffManagementControl = MenuView.staffManagementControl;
@@ -33,7 +34,7 @@ public class CallCardManagementView implements Initializable {
     private final ObservableList<String> readers = FXCollections.observableArrayList(readerManagementControl.getListId());
     private final ObservableList<String> books = FXCollections.observableArrayList(bookManagementControl.getListId());
     private CallCard currentCallCard;
-    private CallCardInfor currentCallCardInfor;
+    private boolean flag = true;
     @FXML
     private TextField tFNameBook;
     @FXML
@@ -57,7 +58,7 @@ public class CallCardManagementView implements Initializable {
     @FXML
     private TextField tFPublishingYear;
     @FXML
-    private TextField tFNumberLoadBook;
+    private TextField tFNumberLoanBook;
     @FXML
     private ComboBox<String> cBIdBook;
     @FXML
@@ -99,7 +100,7 @@ public class CallCardManagementView implements Initializable {
     }
 
     private void resetValueBook() {
-        tFNumberLoadBook.setText("");
+        tFNumberLoanBook.setText("");
         cBIdBook.setValue("");
         tFNameBook.setText("");
         tFAuthor.setText("");
@@ -111,7 +112,7 @@ public class CallCardManagementView implements Initializable {
         bAddBook.setDisable(true);
         bSaveBook.setDisable(true);
         bCancelBook.setDisable(true);
-        tFNumberLoadBook.setDisable(true);
+        tFNumberLoanBook.setDisable(true);
     }
 
     @FXML
@@ -158,6 +159,7 @@ public class CallCardManagementView implements Initializable {
         bAddCallCard.setDisable(false);
         bSaveCallCard.setDisable(true);
         bCancelCallCard.setDisable(true);
+        tVCallCard.setItems(null);
     }
 
     private String autoSetId() {
@@ -166,8 +168,25 @@ public class CallCardManagementView implements Initializable {
     }
 
     @FXML
-    protected void handleRowSelect(ActionEvent event) {
-
+    protected void handleRowSelect() {
+        CallCardInfor row = tVCallCard.getSelectionModel().getSelectedItem();
+        if (row != null) {
+            cBIdBook.setValue(row.getBook().getIdBook());
+            tFNameBook.setText(row.getBook().getNameBook());
+            tFAuthor.setText(row.getBook().getAuthor());
+            tFCategory.setText(row.getBook().getCategory());
+            tFPublishingCompany.setText(row.getBook().getPublishingCompany());
+            String year;
+            if (String.valueOf(row.getBook().getPublishingYear()).equals("null")) {
+                year = "";
+            } else {
+                year = String.valueOf(row.getBook().getPublishingYear());
+            }
+            tFPublishingYear.setText(year);
+            tFReprintTimes.setText(String.valueOf(row.getBook().getReprintTimes()));
+            tFNumberLoanBook.setText(String.valueOf(row.getNumberOfLoanBook()));
+            tFReturnDeadline.setText(DateTimeFormatter.formatDateTime(row.getReturnDeadline(), DateTimeFormatter.getPatternDatetime()));
+        }
     }
 
     @FXML
@@ -185,20 +204,20 @@ public class CallCardManagementView implements Initializable {
         bAddBook.setDisable(true);
         bSaveBook.setDisable(false);
         bCancelBook.setDisable(false);
-        tFNumberLoadBook.setDisable(false);
+        tFNumberLoanBook.setDisable(false);
     }
 
     @FXML
     protected void onSaveButtonBookClick(ActionEvent event) {
         int numBook = BookManagementControl.getListBook().get(bookManagementControl.findIndexById(cBIdBook.getValue())) .getNumberOfBook();
         try {
-            if (numBook < Integer.parseInt(tFNumberLoadBook.getText())) {
+            if (numBook < Integer.parseInt(tFNumberLoanBook.getText())) {
                 throw new Exception();
             }
             Book book = BookManagementControl.getListBook().get(bookManagementControl.findIndexById(cBIdBook.getValue()));
-            currentCallCardInfor = new CallCardInfor(currentCallCard, book, Integer.parseInt(tFNumberLoadBook.getText()), DateTimeFormatter.parseDatetime(tFReturnDeadline.getText(), DateTimeFormatter.getPatternDatetime()));
+            CallCardInfor currentCallCardInfor = new CallCardInfor(currentCallCard, book, Integer.parseInt(tFNumberLoanBook.getText()), DateTimeFormatter.parseDatetime(tFReturnDeadline.getText(), DateTimeFormatter.getPatternDatetime()));
             callCardInformationManagementControl.addCallCardInfor(currentCallCardInfor);
-            book.setNumberOfBook(book.getNumberOfBook() - Integer.parseInt(tFNumberLoadBook.getText()));
+            book.setNumberOfBook(book.getNumberOfBook() - Integer.parseInt(tFNumberLoanBook.getText()));
             showDataInTableView(callCardInformationManagementControl.findCallCardInforById(tFIdCallCard.getText()));
             resetValueBook();
             bAddBook.setDisable(false);
@@ -227,6 +246,7 @@ public class CallCardManagementView implements Initializable {
 
     @FXML
     protected void onAddButtonCallCardClick(ActionEvent event) {
+        flag = false;
         LocalDateTime dateTime = LocalDateTime.now();
         tFIdCallCard.setText(autoSetId());
         cBIdReader.setItems(readers);
@@ -243,7 +263,7 @@ public class CallCardManagementView implements Initializable {
         bAddCallCard.setDisable(true);
         bSaveCallCard.setDisable(false);
         bCancelCallCard.setDisable(false);
-        tFNumberLoadBook.setDisable(false);
+        tFNumberLoanBook.setDisable(false);
 
         currentCallCard = new CallCard(tFIdCallCard.getText(), null, staffManagementControl.getCurrentStaff(),
                 DateTimeFormatter.parseDatetime(tFBookLoanDay.getText(), DateTimeFormatter.getPatternDatetime()));
@@ -262,12 +282,32 @@ public class CallCardManagementView implements Initializable {
             FileCallCardInformationCSV.writeFile(CallCardInformationManagementControl.getReturnCardInfors());
             FileBookCSV.writeFile(BookManagementControl.getListBook());
             resetValueForm();
+            flag = true;
         }
     }
 
     @FXML
     protected void onFindButtonStaffClick(ActionEvent event) {
-
+        resetValueForm();
+        String text = tFFind.getText().toUpperCase().trim();
+        if(text.equals(NULL_VALUE)){
+            resetValueForm();
+        }
+        else {
+            CallCard callCard = callCardManagementControl.findCallCardById(text);
+            if(callCard == null) {
+                showAlert("Không tìm thấy");
+                tFFind.setText("");
+            } else {
+                tFIdCallCard.setText(callCard.getIdCallCard());
+                cBIdReader.setValue(callCard.getReader().getIdReader());
+                tFAddress.setText(callCard.getReader().getAddressReader());
+                tFPhoneNumber.setText(callCard.getReader().getPhoneNumber());
+                tFStaff.setText(callCard.getStaff().getNameStaff());
+                tFBookLoanDay.setText(DateTimeFormatter.formatDateTime(callCard.getBookLoanDay(), DateTimeFormatter.getPatternDatetime()));
+                showDataInTableView(callCardInformationManagementControl.findCallCardInforById(tFIdCallCard.getText()));
+            }
+        }
     }
 
     @FXML
@@ -277,7 +317,14 @@ public class CallCardManagementView implements Initializable {
 
     @FXML
     protected void onCancelButtonCallCardClick(ActionEvent event) {
+        for (CallCardInfor callCardInfor: callCardInformationManagementControl.findCallCardInforById(tFIdCallCard.getText())) {
+            Book book = callCardInfor.getBook();
+            book.setNumberOfBook(book.getNumberOfBook() + callCardInfor.getNumberOfLoanBook());
+        }
+        callCardInformationManagementControl.deleteCallCardInfor(tFIdCallCard.getText());
+        callCardManagementControl.deleteCallCard(tFIdCallCard.getText());
         resetValueForm();
+        flag = true;
     }
 
     @Override
