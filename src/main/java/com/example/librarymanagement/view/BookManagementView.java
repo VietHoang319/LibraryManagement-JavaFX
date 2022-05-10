@@ -1,7 +1,7 @@
 package com.example.librarymanagement.view;
 
 import com.example.librarymanagement.datetime.DateTimeFormatter;
-import com.example.librarymanagement.control.BookManagenmentControl;
+import com.example.librarymanagement.control.BookManagementControl;
 import com.example.librarymanagement.model.Book;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 
 public class BookManagementView implements Initializable {
     public static final String NULLVALUE = "";
-    BookManagenmentControl bookManagenmentControl = new BookManagenmentControl();
+    BookManagementControl bookManagementControl = new BookManagementControl();
     @FXML
     private TextField tFId;
     @FXML
@@ -92,7 +92,7 @@ public class BookManagementView implements Initializable {
         bEdit.setDisable(true);
         bDelete.setDisable(true);
         bSave.setDisable(true);
-        showDataInTableView(BookManagenmentControl.getListStaff());
+        showDataInTableView(BookManagementControl.getListBook());
     }
 
     private void resetValue() {
@@ -157,7 +157,7 @@ public class BookManagementView implements Initializable {
                 } else {
                     publishingYear = Year.parse(tFPublishingYear.getText().trim());
                 }
-                bookManagenmentControl.add(new Book(tFId.getText().trim(), tFName.getText().toUpperCase().trim(), tFAuthor.getText().toUpperCase().trim(), tFCategory.getText().trim(),
+                bookManagementControl.add(new Book(tFId.getText().trim(), tFName.getText().toUpperCase().trim(), tFAuthor.getText().toUpperCase().trim(), tFCategory.getText().trim(),
                         tFPublishingCompany.getText().toLowerCase().trim(), publishingYear, reprintTimes, Integer.parseInt(tFNumberOfBook.getText().trim())));
                 resetValue();
                 resetForm();
@@ -188,7 +188,7 @@ public class BookManagementView implements Initializable {
                 } else {
                     publishingYear = Year.parse(tFPublishingYear.getText().trim());
                 }
-                bookManagenmentControl.update(tFId.getText(), new Book(tFId.getText().trim(), tFName.getText().toUpperCase().trim(), tFAuthor.getText().toUpperCase().trim(), tFCategory.getText().trim(),
+                bookManagementControl.update(tFId.getText(), new Book(tFId.getText().trim(), tFName.getText().toUpperCase().trim(), tFAuthor.getText().toUpperCase().trim(), tFCategory.getText().trim(),
                         tFPublishingCompany.getText().toLowerCase().trim(), publishingYear, reprintTimes, Integer.parseInt(tFNumberOfBook.getText().trim())));
                 resetValue();
                 resetForm();
@@ -199,7 +199,7 @@ public class BookManagementView implements Initializable {
     @FXML
     public void onDeleteButtonBookClick() {
         if (!tFId.getText().equals("")) {
-            bookManagenmentControl.delete(tFId.getText());
+            bookManagementControl.delete(tFId.getText());
             resetValue();
             resetForm();
         }
@@ -241,9 +241,9 @@ public class BookManagementView implements Initializable {
     @FXML
     public void onFindButtonBookClick() {
         if (tFFind.getText().equals("")) {
-            showDataInTableView(BookManagenmentControl.getListStaff());
+            showDataInTableView(BookManagementControl.getListBook());
         } else {
-            showDataInTableView(bookManagenmentControl.findBookByIdOrNameOrCompanyOrAuthor(tFFind.getText().toLowerCase().trim()));
+            showDataInTableView(bookManagementControl.findBookByIdOrNameOrCompanyOrAuthor(tFFind.getText().toLowerCase().trim()));
         }
     }
 

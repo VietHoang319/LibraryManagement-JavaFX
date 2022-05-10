@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginView implements Initializable {
-    protected static Stage stage;
+    protected static Stage stage = LibraryManagementApplication.stageSender;;
     private final MenuView menuView = new MenuView();
     StaffManagementControl staffManagementControl = new StaffManagementControl();
     @FXML
@@ -43,7 +43,6 @@ public class LoginView implements Initializable {
             ResetValue();
             FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("menu.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1500, 800);
-            stage = LibraryManagementApplication.stageSender;
             stage.setTitle("Menu");
             stage.setScene(scene);
             stage.setX(10);

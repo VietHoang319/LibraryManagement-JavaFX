@@ -71,4 +71,12 @@ public class ReaderManagementControl implements IManagement<Reader>{
         listReader.set(findIndexById(id), reader);
         FileReaderCSV.writeFile(listReader);
     }
+
+    public List<String> getListId() {
+        List<String> list = new ArrayList<>();
+        for (Reader reader:listReader) {
+            list.add(reader.getIdReader());
+        }
+        return list;
+    }
 }

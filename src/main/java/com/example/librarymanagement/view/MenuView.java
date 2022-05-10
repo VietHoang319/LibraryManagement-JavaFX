@@ -39,8 +39,14 @@ public class MenuView implements Initializable {
     }
 
     @FXML
-    protected void onCallCardButtonClick() {
-
+    protected void onCallCardButtonClick() throws Exception{
+        FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("call-card-management.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1500, 800);
+        stage.setTitle("Quản lý phiếu mượn");
+        stage.setScene(scene);
+        stage.setX(10);
+        stage.setY(15);
+        stage.show();
     }
 
     @FXML

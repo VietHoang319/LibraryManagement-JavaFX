@@ -6,14 +6,14 @@ import com.example.librarymanagement.model.Book;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookManagenmentControl implements IManagement<Book>{
+public class BookManagementControl implements IManagement<Book>{
     private static final List<Book> listBook = new ArrayList<>();
 
-    public BookManagenmentControl() {
+    public BookManagementControl() {
         FileBookCSV.readFile(listBook);
     }
 
-    public static List<Book> getListStaff() {
+    public static List<Book> getListBook() {
         return listBook;
     }
 
@@ -51,6 +51,14 @@ public class BookManagenmentControl implements IManagement<Book>{
             if (book.getIdBook().contains(inp) || book.getNameBook().contains(inp) || book.getAuthor().contains(inp) || book.getPublishingCompany().contains(inp)) {
                 list.add(book);
             }
+        }
+        return list;
+    }
+
+    public List<String> getListId() {
+        List<String> list = new ArrayList<>();
+        for (Book book:listBook) {
+            list.add(book.getIdBook());
         }
         return list;
     }
