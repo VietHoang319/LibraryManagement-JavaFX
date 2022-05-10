@@ -1,5 +1,6 @@
 package com.example.librarymanagement.file_handling;
 
+import com.example.librarymanagement.control.CallCardInformationManagementControl;
 import com.example.librarymanagement.model.*;
 
 import java.io.*;
@@ -9,10 +10,11 @@ import java.util.List;
 public class FileCallCardInformationCSV {
     public static void writeFile(List<CallCardInfor> list) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src\\main\\java\\com\\example\\librarymanagement\\database\\CallCardInformationData.csv"))) {
-            bufferedWriter.write("ID CALL CARD, ID BOOK, RETURN DEADLINE");
+            bufferedWriter.write("ID CALL CARD, ID BOOK, NUMBER OF LOAN BOOK, RETURN DEADLINE");
             bufferedWriter.newLine();
             for (CallCardInfor callCardInfor: list) {
-                bufferedWriter.write(callCardInfor.getCallCard().getIdCallCard() + ","  + callCardInfor.getBook().getIdBook() + "," + callCardInfor.getReturnDeadline());
+                bufferedWriter.write(callCardInfor.getCallCard().getIdCallCard() + ","  + callCardInfor.getBook().getIdBook() + "," +
+                        callCardInfor.getNumberOfLoanBook() + "," + callCardInfor.getReturnDeadline());
                 bufferedWriter.newLine();
             }
         } catch (IOException e) {
@@ -45,9 +47,9 @@ public class FileCallCardInformationCSV {
                         break;
                     }
                 }
-
-                LocalDateTime returnDeadline = LocalDateTime.parse(callCardInforArray[2]);
-                listCallCardInfor.add(new CallCardInfor(callCard, book, returnDeadline));
+                int numberOfReturnBook = Integer.parseInt(callCardInforArray[2]);
+                LocalDateTime returnDeadline = LocalDateTime.parse(callCardInforArray[3]);
+                listCallCardInfor.add(new CallCardInfor(callCard, book, numberOfReturnBook, returnDeadline));
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

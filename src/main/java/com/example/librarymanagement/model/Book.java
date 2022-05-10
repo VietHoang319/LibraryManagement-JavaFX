@@ -90,4 +90,9 @@ public class Book {
     public void setNumberOfBook(int numberOfBook) {
         this.numberOfBook = numberOfBook;
     }
+
+    @Override
+    public String toString() {
+        return idBook;
+    }
 }
