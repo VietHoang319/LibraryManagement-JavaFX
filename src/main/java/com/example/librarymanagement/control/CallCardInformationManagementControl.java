@@ -25,6 +25,17 @@ public class CallCardInformationManagementControl {
         callCardInformationList.removeAll(findCallCardInforById(inp));
     }
 
+    public void deleteCallCardInforByIdCallCardAndIdBook(String idCallCard, String idBook) {
+        CallCardInfor callCardInfor = new CallCardInfor();
+        for (CallCardInfor callCardInfor1: callCardInformationList) {
+            if (callCardInfor1.getCallCard().getIdCallCard().equals(idCallCard) && callCardInfor1.getBook().getIdBook().equals(idBook)) {
+                callCardInfor = callCardInfor1;
+                break;
+            }
+        }
+        callCardInformationList.remove(callCardInfor);
+    }
+
     public List<CallCardInfor> findCallCardInforById(String inp) {
         List<CallCardInfor> list = new ArrayList<>();
         for (CallCardInfor callCardInfor: callCardInformationList) {

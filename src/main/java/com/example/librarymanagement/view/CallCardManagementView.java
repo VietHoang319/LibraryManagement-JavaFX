@@ -13,11 +13,13 @@ import com.example.librarymanagement.model.Reader;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.fxml.Initializable;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -167,26 +169,41 @@ public class CallCardManagementView implements Initializable {
     }
 
     @FXML
-    protected void handleRowSelect() {
+    protected void handleRowSelect(MouseEvent event) {
         CallCardInfor row = tVCallCard.getSelectionModel().getSelectedItem();
         if (row != null) {
-            cBIdBook.setValue(row.getBook().getIdBook());
-            tFNameBook.setText(row.getBook().getNameBook());
-            tFAuthor.setText(row.getBook().getAuthor());
-            tFCategory.setText(row.getBook().getCategory());
-            tFPublishingCompany.setText(row.getBook().getPublishingCompany());
-            String year;
-            if (String.valueOf(row.getBook().getPublishingYear()).equals("null")) {
-                year = "";
-            } else {
-                year = String.valueOf(row.getBook().getPublishingYear());
+            if (event.getClickCount() == 1) {
+                cBIdBook.setValue(row.getBook().getIdBook());
+                tFNameBook.setText(row.getBook().getNameBook());
+                tFAuthor.setText(row.getBook().getAuthor());
+                tFCategory.setText(row.getBook().getCategory());
+                tFPublishingCompany.setText(row.getBook().getPublishingCompany());
+                String year;
+                if (String.valueOf(row.getBook().getPublishingYear()).equals("null")) {
+                    year = "";
+                } else {
+                    year = String.valueOf(row.getBook().getPublishingYear());
+                }
+                tFPublishingYear.setText(year);
+                tFReprintTimes.setText(String.valueOf(row.getBook().getReprintTimes()));
+                tFNumberLoanBook.setText(String.valueOf(row.getNumberOfLoanBook()));
+                tFReturnDeadline.setText(DateTimeFormatter.formatDateTime(row.getReturnDeadline(), DateTimeFormatter.getPatternDatetime()));
             }
-            tFPublishingYear.setText(year);
-            tFReprintTimes.setText(String.valueOf(row.getBook().getReprintTimes()));
-            tFNumberLoanBook.setText(String.valueOf(row.getNumberOfLoanBook()));
-            tFReturnDeadline.setText(DateTimeFormatter.formatDateTime(row.getReturnDeadline(), DateTimeFormatter.getPatternDatetime()));
+            if (event.getClickCount() == 2) {
+                for (CallCardInfor callCardInfor: callCardInformationManagementControl.findCallCardInforById(tFIdCallCard.getText())) {
+                    Book book = callCardInfor.getBook();
+                    if (book.getIdBook().equals(cBIdBook.getValue())) {
+                        book.setNumberOfBook(book.getNumberOfBook() + callCardInfor.getNumberOfLoanBook());
+                    }
+                }
+                callCardInformationManagementControl.deleteCallCardInforByIdCallCardAndIdBook(tFIdCallCard.getText(), cBIdBook.getValue());
+                showDataInTableView(callCardInformationManagementControl.findCallCardInforById(tFIdCallCard.getText()));
+                resetValueBook();
+            }
         }
     }
+
+
 
     @FXML
     protected void onAddButtonBookClick(ActionEvent event) {
@@ -274,12 +291,17 @@ public class CallCardManagementView implements Initializable {
             showAlert("Bạn phải chọn độc giả");
         }
         else {
-            Reader reader = ReaderManagementControl.getReaders().get(readerManagementControl.findIndexById(cBIdReader.getValue()));
-            currentCallCard.setReader(reader);
-            FileCallCardCSV.writeFile(CallCardManagementControl.getCallCards());
-            FileCallCardInformationCSV.writeFile(CallCardInformationManagementControl.getReturnCardInfors());
-            FileBookCSV.writeFile(BookManagementControl.getBooks());
-            resetValueForm();
+            if (callCardInformationManagementControl.findCallCardInforById(tFIdCallCard.getText()).size() != 0) {
+                Reader reader = ReaderManagementControl.getReaders().get(readerManagementControl.findIndexById(cBIdReader.getValue()));
+                currentCallCard.setReader(reader);
+                FileCallCardCSV.writeFile(CallCardManagementControl.getCallCards());
+                FileCallCardInformationCSV.writeFile(CallCardInformationManagementControl.getReturnCardInfors());
+                FileBookCSV.writeFile(BookManagementControl.getBooks());
+                resetValueForm();
+            } else {
+                showAlert("Bạn không chưa mượn gì cả");
+            }
+
         }
     }
 
