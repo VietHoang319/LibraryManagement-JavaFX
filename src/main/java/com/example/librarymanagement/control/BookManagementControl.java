@@ -1,44 +1,44 @@
 package com.example.librarymanagement.control;
 
-import com.example.librarymanagement.file_handling.FileBookCSV;
+import com.example.librarymanagement.file_handle.FileBookCSV;
 import com.example.librarymanagement.model.Book;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BookManagementControl implements IManagement<Book>{
-    private static final List<Book> listBook = new ArrayList<>();
+    private static final List<Book> books = new ArrayList<>();
 
     public BookManagementControl() {
-        FileBookCSV.readFile(listBook);
+        FileBookCSV.readFile(books);
     }
 
-    public static List<Book> getListBook() {
-        return listBook;
+    public static List<Book> getBooks() {
+        return books;
     }
 
     @Override
     public void add(Book book) {
-        listBook.add(book);
-        FileBookCSV.writeFile(listBook);
+        books.add(book);
+        FileBookCSV.writeFile(books);
     }
 
     @Override
     public void update(String id, Book book) {
-        listBook.set(findIndexById(id), book);
-        FileBookCSV.writeFile(listBook);
+        books.set(findIndexById(id), book);
+        FileBookCSV.writeFile(books);
     }
 
     @Override
     public void delete(String id) {
-        listBook.remove(findIndexById(id));
-        FileBookCSV.writeFile(listBook);
+        books.remove(findIndexById(id));
+        FileBookCSV.writeFile(books);
     }
 
     @Override
     public int findIndexById(String id) {
-        for (int i = 0; i < listBook.size(); i++) {
-            if (listBook.get(i).getIdBook().equals(id)) {
+        for (int i = 0; i < books.size(); i++) {
+            if (books.get(i).getIdBook().equals(id)) {
                 return i;
             }
         }
@@ -47,7 +47,7 @@ public class BookManagementControl implements IManagement<Book>{
 
     public List<Book> findBookByIdOrNameOrCompanyOrAuthor(String inp) {
         List<Book> list = new ArrayList<>();
-        for(Book book : listBook) {
+        for(Book book : books) {
             if (book.getIdBook().contains(inp) || book.getNameBook().contains(inp) || book.getAuthor().contains(inp) || book.getPublishingCompany().contains(inp)) {
                 list.add(book);
             }
@@ -57,7 +57,7 @@ public class BookManagementControl implements IManagement<Book>{
 
     public List<String> getListId() {
         List<String> list = new ArrayList<>();
-        for (Book book:listBook) {
+        for (Book book: books) {
             list.add(book.getIdBook());
         }
         return list;

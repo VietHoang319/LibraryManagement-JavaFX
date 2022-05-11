@@ -1,4 +1,4 @@
-package com.example.librarymanagement.file_handling;
+package com.example.librarymanagement.file_handle;
 
 import com.example.librarymanagement.model.CallCard;
 import com.example.librarymanagement.model.Reader;
@@ -23,7 +23,7 @@ public class FileCallCardCSV {
         }
     }
 
-    public static void readFile(List<CallCard> listCallCard, List<Reader> listReader, List<Staff> listStaff) {
+    public static void readFile(List<CallCard> callCards, List<Reader> readers, List<Staff> staffs) {
         String line = "";
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader("src\\main\\java\\com\\example\\librarymanagement\\database\\CallCardData.csv"))){
             bufferedReader.readLine();
@@ -35,21 +35,21 @@ public class FileCallCardCSV {
                 String[] callCardArray = line.split(",");
                 String idCallCard = callCardArray[0];
                 Reader reader = new Reader();
-                for (Reader reader1: listReader) {
+                for (Reader reader1: readers) {
                     if (reader1.getIdReader().equals(callCardArray[1])) {
                         reader = reader1;
                         break;
                     }
                 }
                 Staff staff = new Staff();
-                for (Staff staff1: listStaff) {
+                for (Staff staff1: staffs) {
                     if (staff1.getIdStaff() == Integer.parseInt(callCardArray[2])) {
                         staff = staff1;
                         break;
                     }
                 }
                 LocalDateTime bookLoanDay = LocalDateTime.parse(callCardArray[3]);
-                listCallCard.add(new CallCard(idCallCard, reader, staff, bookLoanDay));
+                callCards.add(new CallCard(idCallCard, reader, staff, bookLoanDay));
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -18,10 +18,10 @@ public class Staff {
 
     public Staff(String nameStaff, String addressStaff, String emailStaff, String phoneNumberStaff, String username, String password, String role) {
         int sizeOfListEqualZero = 0;
-        if (StaffManagementControl.getListStaff().size() == sizeOfListEqualZero) {
+        if (StaffManagementControl.getStaffs().size() == sizeOfListEqualZero) {
             this.idStaff = 0;
         } else {
-            this.idStaff = StaffManagementControl.getListStaff().get(StaffManagementControl.getListStaff().size() - 1).getIdStaff() + 1;
+            this.idStaff = StaffManagementControl.getStaffs().get(StaffManagementControl.getStaffs().size() - 1).getIdStaff() + 1;
         }
         this.nameStaff = nameStaff;
         this.addressStaff = addressStaff;

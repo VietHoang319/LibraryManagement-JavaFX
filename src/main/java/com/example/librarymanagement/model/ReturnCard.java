@@ -1,52 +1,53 @@
 package com.example.librarymanagement.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ReturnCard {
-    private String idCallCard;
-    private String idBook;
-    private int idStaff;
-    private LocalDate returnDate;
+    private CallCard callCard;
+    private Book book;
+    private Staff staff;
+    private LocalDateTime returnDate;
 
     public ReturnCard() {
     }
 
-    public ReturnCard(String idCallCard, String idBook, int idStaff, LocalDate returnDate) {
-        this.idCallCard = idCallCard;
-        this.idBook = idBook;
-        this.idStaff = idStaff;
+    public ReturnCard(CallCard callCard, Book book, Staff staff, LocalDateTime returnDate) {
+        this.callCard = callCard;
+        this.book = book;
+        this.staff = staff;
         this.returnDate = returnDate;
     }
 
-    public String getIdCallCard() {
-        return idCallCard;
+    public CallCard getCallCard() {
+        return callCard;
     }
 
-    public void setIdCallCard(String idCallCard) {
-        this.idCallCard = idCallCard;
+    public void setCallCard(CallCard callCard) {
+        this.callCard = callCard;
     }
 
-    public String getIdBook() {
-        return idBook;
+    public Book getBook() {
+        return book;
     }
 
-    public void setIdBook(String idBook) {
-        this.idBook = idBook;
+    public void setBook(Book book) {
+        this.book = book;
     }
 
-    public int getIdStaff() {
-        return idStaff;
+    public Staff getStaff() {
+        return staff;
     }
 
-    public void setIdStaff(int idStaff) {
-        this.idStaff = idStaff;
+    public void setStaff(Staff staff) {
+        this.staff = staff;
     }
 
-    public LocalDate getReturnDate() {
+    public LocalDateTime getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(LocalDate returnDate) {
+    public void setReturnDate(LocalDateTime returnDate) {
         this.returnDate = returnDate;
     }
 }

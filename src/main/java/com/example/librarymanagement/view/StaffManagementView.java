@@ -89,7 +89,7 @@ public class StaffManagementView implements Initializable {
         bDelete.setDisable(true);
         bSave.setDisable(true);
         cBRole.setItems(roles);
-        showDataInTableView(StaffManagementControl.getListStaff());
+        showDataInTableView(StaffManagementControl.getStaffs());
     }
 
     private void resetValue() {
@@ -157,10 +157,10 @@ public class StaffManagementView implements Initializable {
         bDelete.setDisable(true);
         resetValue();
         int sizeOfListEqualZero = 0;
-        if (StaffManagementControl.getListStaff().size() == sizeOfListEqualZero) {
+        if (StaffManagementControl.getStaffs().size() == sizeOfListEqualZero) {
             tFId.setText("0");
         } else {
-            tFId.setText(String.valueOf(StaffManagementControl.getListStaff().get(StaffManagementControl.getListStaff().size() - 1).getIdStaff() + 1));
+            tFId.setText(String.valueOf(StaffManagementControl.getStaffs().get(StaffManagementControl.getStaffs().size() - 1).getIdStaff() + 1));
         }
     }
 
@@ -221,7 +221,7 @@ public class StaffManagementView implements Initializable {
     @FXML
     protected void onFindButtonStaffClick() {
         if (tFFind.getText().equals("")) {
-            showDataInTableView(StaffManagementControl.getListStaff());
+            showDataInTableView(StaffManagementControl.getStaffs());
         } else {
             showDataInTableView(staffManagementControl.findStaffByIdOrName(tFFind.getText().toUpperCase().trim()));
         }

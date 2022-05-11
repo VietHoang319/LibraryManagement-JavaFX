@@ -92,7 +92,7 @@ public class BookManagementView implements Initializable {
         bEdit.setDisable(true);
         bDelete.setDisable(true);
         bSave.setDisable(true);
-        showDataInTableView(BookManagementControl.getListBook());
+        showDataInTableView(BookManagementControl.getBooks());
     }
 
     private void resetValue() {
@@ -241,7 +241,7 @@ public class BookManagementView implements Initializable {
     @FXML
     public void onFindButtonBookClick() {
         if (tFFind.getText().equals("")) {
-            showDataInTableView(BookManagementControl.getListBook());
+            showDataInTableView(BookManagementControl.getBooks());
         } else {
             showDataInTableView(bookManagementControl.findBookByIdOrNameOrCompanyOrAuthor(tFFind.getText().toLowerCase().trim()));
         }

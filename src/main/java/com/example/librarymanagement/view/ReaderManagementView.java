@@ -90,7 +90,7 @@ public class ReaderManagementView implements Initializable {
         bDelete.setDisable(true);
         bSave.setDisable(true);
         bExtend.setDisable(true);
-        showDataInTableView(ReaderManagementControl.getListReader());
+        showDataInTableView(ReaderManagementControl.getReaders());
     }
 
     private void resetValue() {
@@ -219,7 +219,7 @@ public class ReaderManagementView implements Initializable {
     @FXML
     protected void onFindButtonStaffClick() {
         if (tFFind.getText().equals("")) {
-            showDataInTableView(ReaderManagementControl.getListReader());
+            showDataInTableView(ReaderManagementControl.getReaders());
         } else {
             showDataInTableView(readerManagementControl.findReaderByIdOrName(tFFind.getText().toUpperCase().trim()));
         }

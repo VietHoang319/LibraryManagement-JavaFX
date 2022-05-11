@@ -3,9 +3,9 @@ package com.example.librarymanagement.view;
 import com.example.librarymanagement.FxUtilTest;
 import com.example.librarymanagement.control.*;
 import com.example.librarymanagement.datetime.DateTimeFormatter;
-import com.example.librarymanagement.file_handling.FileBookCSV;
-import com.example.librarymanagement.file_handling.FileCallCardCSV;
-import com.example.librarymanagement.file_handling.FileCallCardInformationCSV;
+import com.example.librarymanagement.file_handle.FileBookCSV;
+import com.example.librarymanagement.file_handle.FileCallCardCSV;
+import com.example.librarymanagement.file_handle.FileCallCardInformationCSV;
 import com.example.librarymanagement.model.Book;
 import com.example.librarymanagement.model.CallCard;
 import com.example.librarymanagement.model.CallCardInfor;
@@ -34,7 +34,6 @@ public class CallCardManagementView implements Initializable {
     private final ObservableList<String> readers = FXCollections.observableArrayList(readerManagementControl.getListId());
     private final ObservableList<String> books = FXCollections.observableArrayList(bookManagementControl.getListId());
     private CallCard currentCallCard;
-    private boolean flag = true;
     @FXML
     private TextField tFNameBook;
     @FXML
@@ -117,7 +116,7 @@ public class CallCardManagementView implements Initializable {
 
     @FXML
     void handleOnKeyPressedReader(KeyEvent event) {
-        Reader reader = ReaderManagementControl.getListReader().get(readerManagementControl.findIndexById(cBIdReader.getValue()));
+        Reader reader = ReaderManagementControl.getReaders().get(readerManagementControl.findIndexById(cBIdReader.getValue()));
         tFNameReader.setText(reader.getNameReader());
         tFAddress.setText(reader.getAddressReader());
         tFPhoneNumber.setText(reader.getPhoneNumber());
@@ -126,7 +125,7 @@ public class CallCardManagementView implements Initializable {
 
     @FXML
     void handleOnKeyPressedBook(KeyEvent event) {
-        Book book = BookManagementControl.getListBook().get(bookManagementControl.findIndexById(cBIdBook.getValue()));
+        Book book = BookManagementControl.getBooks().get(bookManagementControl.findIndexById(cBIdBook.getValue()));
         tFNameBook.setText(book.getNameBook());
         if (!book.getAuthor().equals("")) {
             tFAuthor.setText(book.getAuthor());
@@ -209,12 +208,12 @@ public class CallCardManagementView implements Initializable {
 
     @FXML
     protected void onSaveButtonBookClick(ActionEvent event) {
-        int numBook = BookManagementControl.getListBook().get(bookManagementControl.findIndexById(cBIdBook.getValue())) .getNumberOfBook();
+        int numBook = BookManagementControl.getBooks().get(bookManagementControl.findIndexById(cBIdBook.getValue())) .getNumberOfBook();
         try {
             if (numBook < Integer.parseInt(tFNumberLoanBook.getText())) {
                 throw new Exception();
             }
-            Book book = BookManagementControl.getListBook().get(bookManagementControl.findIndexById(cBIdBook.getValue()));
+            Book book = BookManagementControl.getBooks().get(bookManagementControl.findIndexById(cBIdBook.getValue()));
             CallCardInfor currentCallCardInfor = new CallCardInfor(currentCallCard, book, Integer.parseInt(tFNumberLoanBook.getText()), DateTimeFormatter.parseDatetime(tFReturnDeadline.getText(), DateTimeFormatter.getPatternDatetime()));
             callCardInformationManagementControl.addCallCardInfor(currentCallCardInfor);
             book.setNumberOfBook(book.getNumberOfBook() - Integer.parseInt(tFNumberLoanBook.getText()));
@@ -246,7 +245,6 @@ public class CallCardManagementView implements Initializable {
 
     @FXML
     protected void onAddButtonCallCardClick(ActionEvent event) {
-        flag = false;
         LocalDateTime dateTime = LocalDateTime.now();
         tFIdCallCard.setText(autoSetId());
         cBIdReader.setItems(readers);
@@ -276,13 +274,12 @@ public class CallCardManagementView implements Initializable {
             showAlert("Bạn phải chọn độc giả");
         }
         else {
-            Reader reader = ReaderManagementControl.getListReader().get(readerManagementControl.findIndexById(cBIdReader.getValue()));
+            Reader reader = ReaderManagementControl.getReaders().get(readerManagementControl.findIndexById(cBIdReader.getValue()));
             currentCallCard.setReader(reader);
-            FileCallCardCSV.writeFile(CallCardManagementControl.getReturnCards());
+            FileCallCardCSV.writeFile(CallCardManagementControl.getCallCards());
             FileCallCardInformationCSV.writeFile(CallCardInformationManagementControl.getReturnCardInfors());
-            FileBookCSV.writeFile(BookManagementControl.getListBook());
+            FileBookCSV.writeFile(BookManagementControl.getBooks());
             resetValueForm();
-            flag = true;
         }
     }
 
@@ -324,7 +321,6 @@ public class CallCardManagementView implements Initializable {
         callCardInformationManagementControl.deleteCallCardInfor(tFIdCallCard.getText());
         callCardManagementControl.deleteCallCard(tFIdCallCard.getText());
         resetValueForm();
-        flag = true;
     }
 
     @Override

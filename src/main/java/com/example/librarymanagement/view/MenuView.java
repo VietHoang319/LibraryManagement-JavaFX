@@ -50,8 +50,14 @@ public class MenuView implements Initializable {
     }
 
     @FXML
-    protected void onReturnCallButtonClick() {
-
+    protected void onReturnCallButtonClick() throws Exception{
+        FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("return-card-management.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1500, 800);
+        stage.setTitle("Quản lý phiếu trả");
+        stage.setScene(scene);
+        stage.setX(10);
+        stage.setY(15);
+        stage.show();
     }
 
     @FXML

@@ -1,6 +1,5 @@
-package com.example.librarymanagement.file_handling;
+package com.example.librarymanagement.file_handle;
 
-import com.example.librarymanagement.control.CallCardInformationManagementControl;
 import com.example.librarymanagement.model.*;
 
 import java.io.*;
@@ -22,7 +21,7 @@ public class FileCallCardInformationCSV {
         }
     }
 
-    public static void readFile(List<CallCardInfor> listCallCardInfor, List<CallCard> listCallCard, List<Book> listBook) {
+    public static void readFile(List<CallCardInfor> callCardInforList, List<CallCard> callCards, List<Book> books) {
         String line = "";
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader("src\\main\\java\\com\\example\\librarymanagement\\database\\CallCardInformationData.csv"))){
             bufferedReader.readLine();
@@ -33,7 +32,7 @@ public class FileCallCardInformationCSV {
                 }
                 String[] callCardInforArray = line.split(",");
                 CallCard callCard = new CallCard();
-                for (CallCard callCard1: listCallCard) {
+                for (CallCard callCard1: callCards) {
                     if (callCard1.getIdCallCard().equals(callCardInforArray[0])) {
                         callCard = callCard1;
                         break;
@@ -41,7 +40,7 @@ public class FileCallCardInformationCSV {
                 }
 
                 Book book = new Book();
-                for (Book book1: listBook) {
+                for (Book book1: books) {
                     if (book1.getIdBook().equals(callCardInforArray[1])) {
                         book = book1;
                         break;
@@ -49,7 +48,7 @@ public class FileCallCardInformationCSV {
                 }
                 int numberOfReturnBook = Integer.parseInt(callCardInforArray[2]);
                 LocalDateTime returnDeadline = LocalDateTime.parse(callCardInforArray[3]);
-                listCallCardInfor.add(new CallCardInfor(callCard, book, numberOfReturnBook, returnDeadline));
+                callCardInforList.add(new CallCardInfor(callCard, book, numberOfReturnBook, returnDeadline));
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

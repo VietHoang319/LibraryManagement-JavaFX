@@ -1,6 +1,6 @@
 package com.example.librarymanagement.control;
 
-import com.example.librarymanagement.file_handling.FileReaderCSV;
+import com.example.librarymanagement.file_handle.FileReaderCSV;
 import com.example.librarymanagement.model.Reader;
 
 import java.time.LocalDateTime;
@@ -8,39 +8,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReaderManagementControl implements IManagement<Reader>{
-    private final static List<Reader> listReader = new ArrayList<>();
+    private final static List<Reader> readers = new ArrayList<>();
 
     public ReaderManagementControl() {
-        FileReaderCSV.readFile(listReader);
+        FileReaderCSV.readFile(readers);
         autoSetLock();
     }
 
-    public static List<Reader> getListReader() {
-        return listReader;
+    public static List<Reader> getReaders() {
+        return readers;
     }
 
     @Override
     public void add(Reader reader) {
-        listReader.add(reader);
-        FileReaderCSV.writeFile(listReader);
+        readers.add(reader);
+        FileReaderCSV.writeFile(readers);
     }
 
     @Override
     public void update(String id, Reader reader) {
-        listReader.set(findIndexById(id), reader);
-        FileReaderCSV.writeFile(listReader);
+        readers.set(findIndexById(id), reader);
+        FileReaderCSV.writeFile(readers);
     }
 
     @Override
     public void delete(String id) {
-        listReader.remove(findIndexById(id));
-        FileReaderCSV.writeFile(listReader);
+        readers.remove(findIndexById(id));
+        FileReaderCSV.writeFile(readers);
     }
 
     @Override
     public int findIndexById(String id) {
-        for (int i = 0; i < listReader.size(); i++) {
-            if (listReader.get(i).getIdReader().equals(id)) {
+        for (int i = 0; i < readers.size(); i++) {
+            if (readers.get(i).getIdReader().equals(id)) {
                 return i;
             }
         }
@@ -49,7 +49,7 @@ public class ReaderManagementControl implements IManagement<Reader>{
 
     public List<Reader> findReaderByIdOrName(String inp) {
         List<Reader> listFind = new ArrayList<>();
-        for (Reader reader : listReader) {
+        for (Reader reader : readers) {
             if (String.valueOf(reader.getIdReader()).contains(inp) || reader.getNameReader().contains(inp)) {
                 listFind.add(reader);
             }
@@ -59,22 +59,22 @@ public class ReaderManagementControl implements IManagement<Reader>{
 
     public void autoSetLock() {
         LocalDateTime localDateTime = LocalDateTime.now();
-        for (Reader reader : listReader) {
+        for (Reader reader : readers) {
             if(reader.getExpiry().isEqual(localDateTime) || !reader.getExpiry().isAfter(localDateTime)) {
                 reader.setLock(true);
             }
         }
-        FileReaderCSV.writeFile(listReader);
+        FileReaderCSV.writeFile(readers);
     }
 
     public void extendExpiry(String id, Reader reader) {
-        listReader.set(findIndexById(id), reader);
-        FileReaderCSV.writeFile(listReader);
+        readers.set(findIndexById(id), reader);
+        FileReaderCSV.writeFile(readers);
     }
 
     public List<String> getListId() {
         List<String> list = new ArrayList<>();
-        for (Reader reader:listReader) {
+        for (Reader reader: readers) {
             list.add(reader.getIdReader());
         }
         return list;
