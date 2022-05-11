@@ -32,13 +32,12 @@ import java.util.ResourceBundle;
 
 public class CallCardManagementView implements Initializable {
     public static final String NULL_VALUE = "";
-    private static final MenuView menuView = new MenuView();
     private static Stage stage = MenuView.stage;
-    private static final ReaderManagementControl readerManagementControl = new ReaderManagementControl();
-    private static final BookManagementControl bookManagementControl = new BookManagementControl();
-    private static final StaffManagementControl staffManagementControl = MenuView.staffManagementControl;
-    private static final CallCardManagementControl callCardManagementControl = new CallCardManagementControl();
-    private static final CallCardInformationManagementControl callCardInformationManagementControl = new CallCardInformationManagementControl();
+    private static final ReaderManagementControl readerManagementControl = ThreadHandle.getReaderManagementControl();
+    private static final BookManagementControl bookManagementControl = ThreadHandle.getBookManagementControl();
+    private static final StaffManagementControl staffManagementControl = ThreadHandle.getStaffManagementControl();
+    private static final CallCardManagementControl callCardManagementControl = ThreadHandle.getCallCardManagementControl();
+    private static final CallCardInformationManagementControl callCardInformationManagementControl = ThreadHandle.getCallCardInformationManagementControl();
     private static final ObservableList<String> readers = FXCollections.observableArrayList(readerManagementControl.getListId());
     private static final ObservableList<String> books = FXCollections.observableArrayList(bookManagementControl.getListId());
     private CallCard currentCallCard;
@@ -364,7 +363,6 @@ public class CallCardManagementView implements Initializable {
         try {
             stage.close();
             stage = new Stage();
-            menuView.setStaffManagementControl(staffManagementControl);
             MenuView.setStage(stage);
             FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("menu.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1500, 800);

@@ -1,7 +1,9 @@
 package com.example.librarymanagement.view;
 
 import com.example.librarymanagement.LibraryManagementApplication;
+import com.example.librarymanagement.control.ReaderManagementControl;
 import com.example.librarymanagement.control.StaffManagementControl;
+import com.example.librarymanagement.control.ThreadHandle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,7 +17,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MenuView implements Initializable {
-    protected static StaffManagementControl staffManagementControl;
+    protected static StaffManagementControl staffManagementControl = ThreadHandle.getStaffManagementControl();
     protected static Stage stage;
     @FXML
     private Label lName;
@@ -34,16 +36,13 @@ public class MenuView implements Initializable {
     @FXML
     private Button bReader;
 
-    public void setStaffManagementControl(StaffManagementControl staffManagementControl) {
-        this.staffManagementControl = staffManagementControl;
-    }
-
     public static void setStage(Stage stage1) {
         stage = stage1;
     }
 
     @FXML
     protected void onCallCardButtonClick() throws Exception{
+        ReaderManagementControl.autoSetLock();
         FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("call-card-management.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1500, 800);
         stage.setTitle("Quản lý phiếu mượn");
@@ -68,6 +67,7 @@ public class MenuView implements Initializable {
 
     @FXML
     protected void onReaderButtonClick() throws Exception{
+        ReaderManagementControl.autoSetLock();
         FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("reader-management.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1500, 800);
         stage.setTitle("Quản lý độc giả");
@@ -85,7 +85,7 @@ public class MenuView implements Initializable {
 
     @FXML
     protected void onBookButtonClick() throws Exception{
-        stage.close();
+//        stage.close();
         FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("book-management.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1500, 800);
         stage.setTitle("Quản lý sách");
@@ -126,7 +126,6 @@ public class MenuView implements Initializable {
         try {
             stage.close();
             stage = new Stage();
-            LoginView.setStaffManagementControl(staffManagementControl);
             LoginView.setStage(stage);
             LibraryManagementApplication.init(stage);
         } catch (IOException e) {

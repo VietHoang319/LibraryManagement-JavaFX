@@ -2,6 +2,7 @@ package com.example.librarymanagement.view;
 
 import com.example.librarymanagement.LibraryManagementApplication;
 import com.example.librarymanagement.control.StaffManagementControl;
+import com.example.librarymanagement.control.ThreadHandle;
 import com.example.librarymanagement.model.Staff;
 import com.example.librarymanagement.validate.EmailValidate;
 import com.example.librarymanagement.validate.PhoneNumberValidate;
@@ -23,7 +24,7 @@ import java.util.ResourceBundle;
 public class StaffManagementView implements Initializable {
     private static final MenuView menuView = new MenuView();
     private static Stage stage = MenuView.stage;
-    private static final StaffManagementControl staffManagementControl = MenuView.staffManagementControl;
+    private static final StaffManagementControl staffManagementControl = ThreadHandle.getStaffManagementControl();
     private final EmailValidate emailValidate = new EmailValidate();
     private final PhoneNumberValidate phoneNumberValidate = new PhoneNumberValidate();
     private final ObservableList<String> roles = FXCollections.observableArrayList("QUẢN LÝ", "THỦ KHO", "NHÂN VIÊN");
@@ -245,7 +246,6 @@ public class StaffManagementView implements Initializable {
             stage.close();
             stage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("menu.fxml"));
-            menuView.setStaffManagementControl(staffManagementControl);
             MenuView.setStage(stage);
             Scene scene = new Scene(fxmlLoader.load(), 1500, 800);
             stage.setTitle("Menu");

@@ -2,6 +2,7 @@ package com.example.librarymanagement.view;
 
 import com.example.librarymanagement.LibraryManagementApplication;
 import com.example.librarymanagement.control.StaffManagementControl;
+import com.example.librarymanagement.control.ThreadHandle;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,14 +14,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginView implements Initializable {
     protected static Stage stage;
-    private final MenuView menuView = new MenuView();
-    protected static StaffManagementControl staffManagementControl;
+    protected static StaffManagementControl staffManagementControl = ThreadHandle.getStaffManagementControl();
     @FXML
     private TextField tFUsername;
     @FXML
@@ -34,10 +33,6 @@ public class LoginView implements Initializable {
         stage = stage1;
     }
 
-    public static void setStaffManagementControl(StaffManagementControl staffManagementControl1) {
-        staffManagementControl = staffManagementControl1;
-    }
-
     private void ResetValue() {
         lStatus.setText("");
         tFPassword.setText("");
@@ -47,7 +42,6 @@ public class LoginView implements Initializable {
     @FXML
     protected void onLoginButtonClick() throws Exception {
         if (staffManagementControl.Login(tFUsername.getText(), tFPassword.getText())) {
-            menuView.setStaffManagementControl(staffManagementControl);
             MenuView.setStage(stage);
             ResetValue();
             stage.close();

@@ -58,7 +58,7 @@ public class ReaderManagementControl implements IManagement<Reader>{
         return listFind;
     }
 
-    public void autoSetLock() {
+    public static void autoSetLock() {
         LocalDateTime localDateTime = LocalDateTime.now();
         for (Reader reader : readers) {
             if(!reader.getExpiry().isAfter(localDateTime)) {

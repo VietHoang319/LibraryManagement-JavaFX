@@ -2,6 +2,7 @@ package com.example.librarymanagement.view;
 
 import com.example.librarymanagement.LibraryManagementApplication;
 import com.example.librarymanagement.control.StaffManagementControl;
+import com.example.librarymanagement.control.ThreadHandle;
 import com.example.librarymanagement.datetime.DateTimeFormatter;
 import com.example.librarymanagement.control.BookManagementControl;
 import com.example.librarymanagement.model.Book;
@@ -26,8 +27,7 @@ public class BookManagementView implements Initializable {
     public static final String NULLVALUE = "";
     private static final MenuView menuView = new MenuView();
     private static Stage stage = MenuView.stage;
-    private static final BookManagementControl bookManagementControl = new BookManagementControl();
-    private static final StaffManagementControl staffManagementControl = MenuView.staffManagementControl;
+    private static final BookManagementControl bookManagementControl = ThreadHandle.getBookManagementControl();
     @FXML
     private TextField tFId;
     @FXML
@@ -266,7 +266,6 @@ public class BookManagementView implements Initializable {
         try {
             stage.close();
             stage = new Stage();
-            menuView.setStaffManagementControl(staffManagementControl);
             MenuView.setStage(stage);
             FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("menu.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1500, 800);

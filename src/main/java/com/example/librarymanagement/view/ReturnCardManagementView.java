@@ -30,12 +30,11 @@ public class ReturnCardManagementView implements Initializable {
     public static final String NULL_VALUE = "";
     private static final MenuView menuView = new MenuView();
     private static Stage stage = MenuView.stage;
-//    private static final ReaderManagementControl readerManagementControl = new ReaderManagementControl();
-    private static final BookManagementControl bookManagementControl = new BookManagementControl();
-    private static final StaffManagementControl staffManagementControl = MenuView.staffManagementControl;
-    private static final CallCardManagementControl callCardManagementControl = new CallCardManagementControl();
-    private static final CallCardInformationManagementControl callCardInformationManagementControl = new CallCardInformationManagementControl();
-    private static final ReturnCardManagementControl returnCardManagementControl = new ReturnCardManagementControl();
+    private static final BookManagementControl bookManagementControl = ThreadHandle.getBookManagementControl();
+    private static final StaffManagementControl staffManagementControl = ThreadHandle.getStaffManagementControl();
+    private static final CallCardManagementControl callCardManagementControl = ThreadHandle.getCallCardManagementControl();
+    private static final CallCardInformationManagementControl callCardInformationManagementControl = ThreadHandle.getCallCardInformationManagementControl();
+    private static final ReturnCardManagementControl returnCardManagementControl = ThreadHandle.getReturnCardManagementControl();
     @FXML
     private TextField tFNameBook;
     @FXML
@@ -197,7 +196,7 @@ public class ReturnCardManagementView implements Initializable {
 
     @FXML
     protected void onExitButtonClick(ActionEvent event) {
-
+        exit();
     }
 
     @Override
@@ -209,7 +208,6 @@ public class ReturnCardManagementView implements Initializable {
         try {
             stage.close();
             stage = new Stage();
-            menuView.setStaffManagementControl(staffManagementControl);
             MenuView.setStage(stage);
             FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("menu.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1500, 800);

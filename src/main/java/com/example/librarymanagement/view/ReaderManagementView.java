@@ -3,6 +3,7 @@ package com.example.librarymanagement.view;
 import com.example.librarymanagement.LibraryManagementApplication;
 import com.example.librarymanagement.control.ReaderManagementControl;
 import com.example.librarymanagement.control.StaffManagementControl;
+import com.example.librarymanagement.control.ThreadHandle;
 import com.example.librarymanagement.datetime.DateTimeFormatter;
 import com.example.librarymanagement.model.Reader;
 import com.example.librarymanagement.validate.EmailValidate;
@@ -26,10 +27,8 @@ import java.util.ResourceBundle;
 public class ReaderManagementView implements Initializable {
     public static final String READER_IS_NOT_LOCK = "MỞ";
     public static final String READER_IS_LOCK = "KHÓA";
-    private static final MenuView menuView = new MenuView();
     private static Stage stage = MenuView.stage;
-    private static final ReaderManagementControl readerManagementControl = new ReaderManagementControl();
-    private static final StaffManagementControl staffManagementControl = MenuView.staffManagementControl;
+    private static final ReaderManagementControl readerManagementControl = ThreadHandle.getReaderManagementControl();
     EmailValidate emailValidate = new EmailValidate();
     PhoneNumberValidate phoneNumberValidate = new PhoneNumberValidate();
     @FXML
@@ -253,7 +252,6 @@ public class ReaderManagementView implements Initializable {
         try {
             stage.close();
             stage = new Stage();
-            menuView.setStaffManagementControl(staffManagementControl);
             MenuView.setStage(stage);
             FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("menu.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1500, 800);

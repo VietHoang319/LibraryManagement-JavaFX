@@ -1,6 +1,5 @@
 package com.example.librarymanagement;
 
-import com.example.librarymanagement.control.StaffManagementControl;
 import com.example.librarymanagement.view.LoginView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +15,6 @@ public class LibraryManagementApplication extends Application {
     public void start(Stage stage) throws IOException {
         stageSender = stage;
         LoginView.setStage(stageSender);
-        LoginView.setStaffManagementControl(new StaffManagementControl());
         init(stage);
     }
 
