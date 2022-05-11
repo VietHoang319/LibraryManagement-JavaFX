@@ -1,6 +1,7 @@
 package com.example.librarymanagement.view;
 
 import com.example.librarymanagement.FxUtilTest;
+import com.example.librarymanagement.LibraryManagementApplication;
 import com.example.librarymanagement.control.*;
 import com.example.librarymanagement.datetime.DateTimeFormatter;
 import com.example.librarymanagement.file_handle.FileBookCSV;
@@ -15,12 +16,16 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.fxml.Initializable;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,13 +33,15 @@ import java.util.ResourceBundle;
 
 public class CallCardManagementView implements Initializable {
     public static final String NULL_VALUE = "";
-    private final ReaderManagementControl readerManagementControl = new ReaderManagementControl();
-    private final BookManagementControl bookManagementControl = new BookManagementControl();
-    private final StaffManagementControl staffManagementControl = MenuView.staffManagementControl;
-    private final CallCardManagementControl callCardManagementControl = new CallCardManagementControl();
-    private final CallCardInformationManagementControl callCardInformationManagementControl = new CallCardInformationManagementControl();
-    private final ObservableList<String> readers = FXCollections.observableArrayList(readerManagementControl.getListId());
-    private final ObservableList<String> books = FXCollections.observableArrayList(bookManagementControl.getListId());
+    private static final MenuView menuView = new MenuView();
+    private static Stage stage = MenuView.stage;
+    private static final ReaderManagementControl readerManagementControl = new ReaderManagementControl();
+    private static final BookManagementControl bookManagementControl = new BookManagementControl();
+    private static final StaffManagementControl staffManagementControl = MenuView.staffManagementControl;
+    private static final CallCardManagementControl callCardManagementControl = new CallCardManagementControl();
+    private static final CallCardInformationManagementControl callCardInformationManagementControl = new CallCardInformationManagementControl();
+    private static final ObservableList<String> readers = FXCollections.observableArrayList(readerManagementControl.getListId());
+    private static final ObservableList<String> books = FXCollections.observableArrayList(bookManagementControl.getListId());
     private CallCard currentCallCard;
     @FXML
     private TextField tFNameBook;
@@ -348,5 +355,24 @@ public class CallCardManagementView implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         resetValueForm();
+    }
+
+    public static void exit() {
+        try {
+            stage.close();
+            stage = new Stage();
+            menuView.setStaffManagementControl(staffManagementControl);
+            MenuView.setStage(stage);
+            FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("menu.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1500, 800);
+            stage.setTitle("Menu");
+            stage.setScene(scene);
+            stage.setX(10);
+            stage.setY(15);
+            stage.setOnCloseRequest(e -> MenuView.exit());
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Không tìm thấy màn");
+        }
     }
 }

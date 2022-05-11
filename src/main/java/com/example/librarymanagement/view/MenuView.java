@@ -44,24 +44,26 @@ public class MenuView implements Initializable {
 
     @FXML
     protected void onCallCardButtonClick() throws Exception{
-//        FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("call-card-management.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(), 1500, 800);
-//        stage.setTitle("Quản lý phiếu mượn");
-//        stage.setScene(scene);
-//        stage.setX(10);
-//        stage.setY(15);
-//        stage.show();
+        FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("call-card-management.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1500, 800);
+        stage.setTitle("Quản lý phiếu mượn");
+        stage.setScene(scene);
+        stage.setX(10);
+        stage.setY(15);
+        stage.setOnCloseRequest(e -> CallCardManagementView.exit());
+        stage.show();
     }
 
     @FXML
     protected void onReturnCallButtonClick() throws Exception{
-//        FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("return-card-management.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(), 1500, 800);
-//        stage.setTitle("Quản lý phiếu trả");
-//        stage.setScene(scene);
-//        stage.setX(10);
-//        stage.setY(15);
-//        stage.show();
+        FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("return-card-management.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1500, 800);
+        stage.setTitle("Quản lý phiếu trả");
+        stage.setScene(scene);
+        stage.setX(10);
+        stage.setY(15);
+        stage.setOnCloseRequest(e -> ReturnCardManagementView.exit());
+        stage.show();
     }
 
     @FXML
