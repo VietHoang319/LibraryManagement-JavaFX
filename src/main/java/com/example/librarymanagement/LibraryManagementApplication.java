@@ -1,5 +1,7 @@
 package com.example.librarymanagement;
 
+import com.example.librarymanagement.control.StaffManagementControl;
+import com.example.librarymanagement.view.LoginView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,9 +15,15 @@ public class LibraryManagementApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         stageSender = stage;
+        LoginView.setStage(stageSender);
+        LoginView.setStaffManagementControl(new StaffManagementControl());
+        init(stage);
+    }
+
+    public static void init(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 700, 350);
-        stage.setTitle("Login");
+        stage.setTitle("Đăng nhập");
         stage.setScene(scene);
         stage.show();
     }

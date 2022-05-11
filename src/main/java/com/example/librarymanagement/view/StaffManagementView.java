@@ -1,5 +1,6 @@
 package com.example.librarymanagement.view;
 
+import com.example.librarymanagement.LibraryManagementApplication;
 import com.example.librarymanagement.control.StaffManagementControl;
 import com.example.librarymanagement.model.Staff;
 import com.example.librarymanagement.validate.EmailValidate;
@@ -7,16 +8,22 @@ import com.example.librarymanagement.validate.PhoneNumberValidate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class StaffManagementView implements Initializable {
-    private final StaffManagementControl staffManagementControl = MenuView.staffManagementControl;
+    private static final MenuView menuView = new MenuView();
+    private static Stage stage = MenuView.stage;
+    private static final StaffManagementControl staffManagementControl = MenuView.staffManagementControl;
     private final EmailValidate emailValidate = new EmailValidate();
     private final PhoneNumberValidate phoneNumberValidate = new PhoneNumberValidate();
     private final ObservableList<String> roles = FXCollections.observableArrayList("QUẢN LÝ", "THỦ KHO", "NHÂN VIÊN");
@@ -231,5 +238,24 @@ public class StaffManagementView implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         resetValue();
         resetForm();
+    }
+
+    public static void exit() {
+        try {
+            stage.close();
+            stage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("menu.fxml"));
+            menuView.setStaffManagementControl(staffManagementControl);
+            MenuView.setStage(stage);
+            Scene scene = new Scene(fxmlLoader.load(), 1500, 800);
+            stage.setTitle("Menu");
+            stage.setScene(scene);
+            stage.setX(10);
+            stage.setY(15);
+            stage.setOnCloseRequest(e -> MenuView.exit());
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Không tìm thấy màn");
+        }
     }
 }

@@ -1,15 +1,21 @@
 package com.example.librarymanagement.view;
 
+import com.example.librarymanagement.LibraryManagementApplication;
+import com.example.librarymanagement.control.StaffManagementControl;
 import com.example.librarymanagement.datetime.DateTimeFormatter;
 import com.example.librarymanagement.control.BookManagementControl;
 import com.example.librarymanagement.model.Book;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.Year;
@@ -18,7 +24,10 @@ import java.util.ResourceBundle;
 
 public class BookManagementView implements Initializable {
     public static final String NULLVALUE = "";
-    BookManagementControl bookManagementControl = new BookManagementControl();
+    private static final MenuView menuView = new MenuView();
+    private static Stage stage = MenuView.stage;
+    private static final BookManagementControl bookManagementControl = new BookManagementControl();
+    private static final StaffManagementControl staffManagementControl = MenuView.staffManagementControl;
     @FXML
     private TextField tFId;
     @FXML
@@ -251,5 +260,24 @@ public class BookManagementView implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         resetForm();
         resetValue();
+    }
+
+    public static void exit() {
+        try {
+            stage.close();
+            stage = new Stage();
+            menuView.setStaffManagementControl(staffManagementControl);
+            MenuView.setStage(stage);
+            FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("menu.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1500, 800);
+            stage.setTitle("Menu");
+            stage.setScene(scene);
+            stage.setX(10);
+            stage.setY(15);
+            stage.setOnCloseRequest(e -> MenuView.exit());
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Không tìm thấy màn");
+        }
     }
 }

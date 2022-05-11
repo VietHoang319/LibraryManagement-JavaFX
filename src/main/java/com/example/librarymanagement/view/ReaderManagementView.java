@@ -1,6 +1,8 @@
 package com.example.librarymanagement.view;
 
+import com.example.librarymanagement.LibraryManagementApplication;
 import com.example.librarymanagement.control.ReaderManagementControl;
+import com.example.librarymanagement.control.StaffManagementControl;
 import com.example.librarymanagement.datetime.DateTimeFormatter;
 import com.example.librarymanagement.model.Reader;
 import com.example.librarymanagement.validate.EmailValidate;
@@ -8,10 +10,14 @@ import com.example.librarymanagement.validate.PhoneNumberValidate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,7 +26,10 @@ import java.util.ResourceBundle;
 public class ReaderManagementView implements Initializable {
     public static final String READER_IS_NOT_LOCK = "MỞ";
     public static final String READER_IS_LOCK = "KHÓA";
-    ReaderManagementControl readerManagementControl = new ReaderManagementControl();
+    private static final MenuView menuView = new MenuView();
+    private static Stage stage = MenuView.stage;
+    private static final ReaderManagementControl readerManagementControl = new ReaderManagementControl();
+    private static final StaffManagementControl staffManagementControl = MenuView.staffManagementControl;
     EmailValidate emailValidate = new EmailValidate();
     PhoneNumberValidate phoneNumberValidate = new PhoneNumberValidate();
     @FXML
@@ -238,5 +247,24 @@ public class ReaderManagementView implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         resetForm();
         resetValue();
+    }
+
+    public static void exit() {
+        try {
+            stage.close();
+            stage = new Stage();
+            menuView.setStaffManagementControl(staffManagementControl);
+            MenuView.setStage(stage);
+            FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("menu.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1500, 800);
+            stage.setTitle("Menu");
+            stage.setScene(scene);
+            stage.setX(10);
+            stage.setY(15);
+            stage.setOnCloseRequest(e -> MenuView.exit());
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Không tìm thấy màn");
+        }
     }
 }

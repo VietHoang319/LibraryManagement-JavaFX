@@ -8,15 +8,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MenuView implements Initializable {
     protected static StaffManagementControl staffManagementControl;
-    private final Stage stage = LoginView.stage;
+    protected static Stage stage;
     @FXML
     private Label lName;
     @FXML
@@ -38,26 +38,30 @@ public class MenuView implements Initializable {
         this.staffManagementControl = staffManagementControl;
     }
 
+    public static void setStage(Stage stage1) {
+        stage = stage1;
+    }
+
     @FXML
     protected void onCallCardButtonClick() throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("call-card-management.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1500, 800);
-        stage.setTitle("Quản lý phiếu mượn");
-        stage.setScene(scene);
-        stage.setX(10);
-        stage.setY(15);
-        stage.show();
+//        FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("call-card-management.fxml"));
+//        Scene scene = new Scene(fxmlLoader.load(), 1500, 800);
+//        stage.setTitle("Quản lý phiếu mượn");
+//        stage.setScene(scene);
+//        stage.setX(10);
+//        stage.setY(15);
+//        stage.show();
     }
 
     @FXML
     protected void onReturnCallButtonClick() throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("return-card-management.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1500, 800);
-        stage.setTitle("Quản lý phiếu trả");
-        stage.setScene(scene);
-        stage.setX(10);
-        stage.setY(15);
-        stage.show();
+//        FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("return-card-management.fxml"));
+//        Scene scene = new Scene(fxmlLoader.load(), 1500, 800);
+//        stage.setTitle("Quản lý phiếu trả");
+//        stage.setScene(scene);
+//        stage.setX(10);
+//        stage.setY(15);
+//        stage.show();
     }
 
     @FXML
@@ -68,6 +72,7 @@ public class MenuView implements Initializable {
         stage.setScene(scene);
         stage.setX(10);
         stage.setY(15);
+        stage.setOnCloseRequest(e -> ReaderManagementView.exit());
         stage.show();
     }
 
@@ -78,12 +83,14 @@ public class MenuView implements Initializable {
 
     @FXML
     protected void onBookButtonClick() throws Exception{
+        stage.close();
         FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("book-management.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1500, 800);
         stage.setTitle("Quản lý sách");
         stage.setScene(scene);
         stage.setX(10);
         stage.setY(15);
+        stage.setOnCloseRequest(e -> BookManagementView.exit());
         stage.show();
     }
 
@@ -95,6 +102,7 @@ public class MenuView implements Initializable {
         stage.setScene(scene);
         stage.setX(10);
         stage.setY(15);
+        stage.setOnCloseRequest(e -> StaffManagementView.exit());
         stage.show();
     }
 
@@ -109,6 +117,18 @@ public class MenuView implements Initializable {
         }
         if (staffManagementControl.getCurrentStaff().getRole().equals("THỦ KHO")) {
             bStaff.setVisible(false);
+        }
+    }
+
+    public static void exit() {
+        try {
+            stage.close();
+            stage = new Stage();
+            LoginView.setStaffManagementControl(staffManagementControl);
+            LoginView.setStage(stage);
+            LibraryManagementApplication.init(stage);
+        } catch (IOException e) {
+            System.out.println("Không tìm thấy scene");
         }
     }
 }

@@ -12,15 +12,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginView implements Initializable {
-    protected static Stage stage = LibraryManagementApplication.stageSender;;
+    protected static Stage stage;
     private final MenuView menuView = new MenuView();
-    StaffManagementControl staffManagementControl = new StaffManagementControl();
+    protected static StaffManagementControl staffManagementControl;
     @FXML
     private TextField tFUsername;
     @FXML
@@ -29,6 +29,14 @@ public class LoginView implements Initializable {
     private Label lStatus;
     @FXML
     private Button bLogin;
+
+    public static void setStage(Stage stage1) {
+        stage = stage1;
+    }
+
+    public static void setStaffManagementControl(StaffManagementControl staffManagementControl1) {
+        staffManagementControl = staffManagementControl1;
+    }
 
     private void ResetValue() {
         lStatus.setText("");
@@ -40,19 +48,22 @@ public class LoginView implements Initializable {
     protected void onLoginButtonClick() throws Exception {
         if (staffManagementControl.Login(tFUsername.getText(), tFPassword.getText())) {
             menuView.setStaffManagementControl(staffManagementControl);
+            MenuView.setStage(stage);
             ResetValue();
+            stage.close();
             FXMLLoader fxmlLoader = new FXMLLoader(LibraryManagementApplication.class.getResource("menu.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1500, 800);
             stage.setTitle("Menu");
             stage.setScene(scene);
             stage.setX(10);
             stage.setY(15);
+            stage.setOnCloseRequest(e -> MenuView.exit());
             stage.show();
-
         } else {
             lStatus.setText("SAI TÊN ĐĂNG NHẬP HOẶC MẬT KHẨU");
             tFPassword.setText("");
         }
+
     }
 
     @Override
