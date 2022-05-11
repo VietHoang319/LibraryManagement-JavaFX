@@ -8,7 +8,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.librarymanagement.view.MenuView">
    <bottom>
       <GridPane prefHeight="128.0" prefWidth="1500.0" BorderPane.alignment="CENTER">
@@ -89,36 +88,28 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                <children>
-                  <Button fx:id="bInfor" mnemonicParsing="false" onAction="#onInforButtonClick" prefHeight="200.0" prefWidth="300.0" text="THÔNG TIN NHÂN VIÊN" textAlignment="CENTER" wrapText="true">
-                     <HBox.margin>
-                        <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="System Bold" size="30.0" />
-                     </font>
-                  </Button>
+                  <HBox alignment="CENTER" prefHeight="336.0" prefWidth="620.0">
+                     <children>
+                        <Button fx:id="bBook" mnemonicParsing="false" onAction="#onBookButtonClick" prefHeight="200.0" prefWidth="300.0" text="QUẢN LÝ SÁCH">
+                           <HBox.margin>
+                              <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="30.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Button fx:id="bBook" mnemonicParsing="false" onAction="#onBookButtonClick" prefHeight="200.0" prefWidth="300.0" text="QUẢN LÝ SÁCH">
+                  <Button fx:id="bStaff" mnemonicParsing="false" onAction="#onStaffButtonClick" prefHeight="200.0" prefWidth="300.0" text="QUẢN LÝ NHÂN VIÊN" textAlignment="CENTER" wrapText="true">
                      <HBox.margin>
                         <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
                      </HBox.margin>
                      <font>
-                        <Font name="System Bold" size="30.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <children>
-                  <Button fx:id="bStaff" mnemonicParsing="false" onAction="#onStaffButtonClick" prefHeight="200.0" prefWidth="300.0" text="QUẢN LÝ NHÂN VIÊN">
-                     <HBox.margin>
-                        <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="System Bold" size="30.0" />
+                        <Font name="System Bold" size="35.0" />
                      </font>
                   </Button>
                </children>

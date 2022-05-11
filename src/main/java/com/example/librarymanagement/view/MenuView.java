@@ -24,8 +24,6 @@ public class MenuView implements Initializable {
     @FXML
     private Label lRole;
     @FXML
-    private Button bInfor;
-    @FXML
     private Button bBook;
     @FXML
     private Button bCallCard;
@@ -76,11 +74,6 @@ public class MenuView implements Initializable {
         stage.setY(15);
         stage.setOnCloseRequest(e -> ReaderManagementView.exit());
         stage.show();
-    }
-
-    @FXML
-    protected void onInforButtonClick() {
-
     }
 
     @FXML
