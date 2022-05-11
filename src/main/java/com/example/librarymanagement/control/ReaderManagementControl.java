@@ -1,6 +1,7 @@
 package com.example.librarymanagement.control;
 
 import com.example.librarymanagement.file_handle.FileReaderCSV;
+import com.example.librarymanagement.model.CallCardInfor;
 import com.example.librarymanagement.model.Reader;
 
 import java.time.LocalDateTime;
@@ -60,8 +61,13 @@ public class ReaderManagementControl implements IManagement<Reader>{
     public void autoSetLock() {
         LocalDateTime localDateTime = LocalDateTime.now();
         for (Reader reader : readers) {
-            if(reader.getExpiry().isEqual(localDateTime) || !reader.getExpiry().isAfter(localDateTime)) {
+            if(!reader.getExpiry().isAfter(localDateTime)) {
                 reader.setLock(true);
+            }
+        }
+        for (CallCardInfor callCardInfor : CallCardInformationManagementControl.getCallCardInfors()) {
+            if (!callCardInfor.getReturnDeadline().isAfter(localDateTime)) {
+                callCardInfor.getCallCard().getReader().setLock(true);
             }
         }
         FileReaderCSV.writeFile(readers);

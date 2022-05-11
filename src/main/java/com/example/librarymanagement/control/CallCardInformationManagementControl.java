@@ -13,7 +13,7 @@ public class CallCardInformationManagementControl {
         FileCallCardInformationCSV.readFile(callCardInformationList, CallCardManagementControl.getCallCards(), BookManagementControl.getBooks());
     }
 
-    public static List<CallCardInfor> getReturnCardInfors() {
+    public static List<CallCardInfor> getCallCardInfors() {
         return callCardInformationList;
     }
 

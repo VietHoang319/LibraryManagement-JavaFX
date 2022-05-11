@@ -14,7 +14,6 @@ import com.example.librarymanagement.model.Reader;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -126,10 +125,14 @@ public class CallCardManagementView implements Initializable {
     @FXML
     void handleOnKeyPressedReader(KeyEvent event) {
         Reader reader = ReaderManagementControl.getReaders().get(readerManagementControl.findIndexById(cBIdReader.getValue()));
-        tFNameReader.setText(reader.getNameReader());
-        tFAddress.setText(reader.getAddressReader());
-        tFPhoneNumber.setText(reader.getPhoneNumber());
-        FxUtilTest.getComboBoxValue(cBIdReader);
+        if (!reader.isLock()) {
+            tFNameReader.setText(reader.getNameReader());
+            tFAddress.setText(reader.getAddressReader());
+            tFPhoneNumber.setText(reader.getPhoneNumber());
+            FxUtilTest.getComboBoxValue(cBIdReader);
+        } else {
+            showAlert("Thẻ của độc giả này đã bị khóa");
+        }
     }
 
     @FXML
@@ -302,7 +305,7 @@ public class CallCardManagementView implements Initializable {
                 Reader reader = ReaderManagementControl.getReaders().get(readerManagementControl.findIndexById(cBIdReader.getValue()));
                 currentCallCard.setReader(reader);
                 FileCallCardCSV.writeFile(CallCardManagementControl.getCallCards());
-                FileCallCardInformationCSV.writeFile(CallCardInformationManagementControl.getReturnCardInfors());
+                FileCallCardInformationCSV.writeFile(CallCardInformationManagementControl.getCallCardInfors());
                 FileBookCSV.writeFile(BookManagementControl.getBooks());
                 resetValueForm();
             } else {
@@ -338,7 +341,7 @@ public class CallCardManagementView implements Initializable {
 
     @FXML
     protected void onExitButtonClick(ActionEvent event) {
-
+        exit();
     }
 
     @FXML

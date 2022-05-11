@@ -63,7 +63,6 @@ public class LoginView implements Initializable {
             lStatus.setText("SAI TÊN ĐĂNG NHẬP HOẶC MẬT KHẨU");
             tFPassword.setText("");
         }
-
     }
 
     @Override
