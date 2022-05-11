@@ -2,9 +2,7 @@ package com.example.librarymanagement.view;
 
 import com.example.librarymanagement.LibraryManagementApplication;
 import com.example.librarymanagement.control.StaffManagementControl;
-import com.example.librarymanagement.control.ThreadHandle;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
+import com.example.librarymanagement.ThreadHandle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;

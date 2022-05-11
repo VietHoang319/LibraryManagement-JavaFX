@@ -65,7 +65,7 @@ public class ReaderManagementControl implements IManagement<Reader>{
                 reader.setLock(true);
             }
         }
-        for (CallCardInfor callCardInfor : CallCardInformationManagementControl.getCallCardInfors()) {
+        for (CallCardInfor callCardInfor : CallCardInformationManagementControl.getCallCardInforList()) {
             if (!callCardInfor.getReturnDeadline().isAfter(localDateTime)) {
                 callCardInfor.getCallCard().getReader().setLock(true);
             }

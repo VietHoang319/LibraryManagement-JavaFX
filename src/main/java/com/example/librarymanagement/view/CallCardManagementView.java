@@ -2,6 +2,7 @@ package com.example.librarymanagement.view;
 
 import com.example.librarymanagement.FxUtilTest;
 import com.example.librarymanagement.LibraryManagementApplication;
+import com.example.librarymanagement.ThreadHandle;
 import com.example.librarymanagement.control.*;
 import com.example.librarymanagement.datetime.DateTimeFormatter;
 import com.example.librarymanagement.file_handle.FileBookCSV;
@@ -304,7 +305,7 @@ public class CallCardManagementView implements Initializable {
                 Reader reader = ReaderManagementControl.getReaders().get(readerManagementControl.findIndexById(cBIdReader.getValue()));
                 currentCallCard.setReader(reader);
                 FileCallCardCSV.writeFile(CallCardManagementControl.getCallCards());
-                FileCallCardInformationCSV.writeFile(CallCardInformationManagementControl.getCallCardInfors());
+                FileCallCardInformationCSV.writeFile(CallCardInformationManagementControl.getCallCardInforList());
                 FileBookCSV.writeFile(BookManagementControl.getBooks());
                 resetValueForm();
             } else {

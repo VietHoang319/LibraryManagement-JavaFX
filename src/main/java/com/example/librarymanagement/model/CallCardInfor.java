@@ -8,7 +8,7 @@ public class CallCardInfor {
 
     private int numberOfLoanBook;
 
-    private LocalDateTime ReturnDeadline;
+    private LocalDateTime returnDeadline;
 
     public CallCardInfor() {
     }
@@ -17,7 +17,7 @@ public class CallCardInfor {
         this.callCard = callCard;
         this.book = book;
         this.numberOfLoanBook = numberOfLoanBook;
-        ReturnDeadline = returnDeadline;
+        this.returnDeadline = returnDeadline;
     }
 
     public CallCard getCallCard() {
@@ -37,11 +37,11 @@ public class CallCardInfor {
     }
 
     public LocalDateTime getReturnDeadline() {
-        return ReturnDeadline;
+        return returnDeadline;
     }
 
     public void setReturnDeadline(LocalDateTime returnDeadline) {
-        ReturnDeadline = returnDeadline;
+        this.returnDeadline = returnDeadline;
     }
 
     public int getNumberOfLoanBook() {
@@ -50,15 +50,5 @@ public class CallCardInfor {
 
     public void setNumberOfLoanBook(int numberOfLoanBook) {
         this.numberOfLoanBook = numberOfLoanBook;
-    }
-
-    @Override
-    public String toString() {
-        return "CallCardInfor{" +
-                "callCard=" + callCard +
-                ", book=" + book +
-                ", numberOfLoanBook=" + numberOfLoanBook +
-                ", ReturnDeadline=" + ReturnDeadline +
-                '}';
     }
 }

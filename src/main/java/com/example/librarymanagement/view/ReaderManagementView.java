@@ -2,8 +2,7 @@ package com.example.librarymanagement.view;
 
 import com.example.librarymanagement.LibraryManagementApplication;
 import com.example.librarymanagement.control.ReaderManagementControl;
-import com.example.librarymanagement.control.StaffManagementControl;
-import com.example.librarymanagement.control.ThreadHandle;
+import com.example.librarymanagement.ThreadHandle;
 import com.example.librarymanagement.datetime.DateTimeFormatter;
 import com.example.librarymanagement.model.Reader;
 import com.example.librarymanagement.validate.EmailValidate;
