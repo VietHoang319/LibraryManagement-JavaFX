@@ -1,6 +1,8 @@
 package com.example.librarymanagement.control;
 
 import com.example.librarymanagement.file_handle.FileReturnCardCSV;
+import com.example.librarymanagement.model.Book;
+import com.example.librarymanagement.model.CallCard;
 import com.example.librarymanagement.model.ReturnCard;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class ReturnCardManagementControl {
         FileReturnCardCSV.writeFile(returnCards);
     }
 
-    public List<ReturnCard> findReturnCardById(String inp) {
+    public List<ReturnCard> findListReturnCardById(String inp) {
         List<ReturnCard> list = new ArrayList<>();
         for (ReturnCard returnCard : returnCards) {
             if (returnCard.getCallCard().getIdCallCard().equals(inp)) {
@@ -30,5 +32,14 @@ public class ReturnCardManagementControl {
             }
         }
         return list;
+    }
+
+    public ReturnCard findReturnCardByIdAndBook(CallCard callCard, Book book) {
+        for (ReturnCard returnCard : returnCards) {
+            if (returnCard.getBook().equals(book) && returnCard.getCallCard().equals(callCard)) {
+                return returnCard;
+            }
+        }
+        return null;
     }
 }

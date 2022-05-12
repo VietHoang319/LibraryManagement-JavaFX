@@ -65,16 +65,19 @@ public class ReaderManagementControl implements IManagement<Reader>{
                 reader.setLock(true);
             }
         }
-        for (CallCardInfor callCardInfor : CallCardInformationManagementControl.getCallCardInforList()) {
-            if (!callCardInfor.getReturnDeadline().isAfter(localDateTime)) {
-                callCardInfor.getCallCard().getReader().setLock(true);
-            }
-        }
+//        ReturnCardManagementControl returnCardManagementControl = new ReturnCardManagementControl();
+//        for (CallCardInfor callCardInfor : CallCardInformationManagementControl.getCallCardInforList()) {
+//            if (!(callCardInfor.getReturnDeadline().isAfter(localDateTime) && returnCardManagementControl.findReturnCardByIdAndBook(callCardInfor.getCallCard(), callCardInfor.getBook()).getReturnDate().isAfter(callCardInfor.getReturnDeadline()))) {
+//                callCardInfor.getCallCard().getReader().setLock(true);
+//            }
+//        }
         FileReaderCSV.writeFile(readers);
     }
 
     public void extendExpiry(String id, Reader reader) {
-        readers.set(findIndexById(id), reader);
+//        readers.set(findIndexById(id), reader);
+        readers.get(findIndexById(id)).setExpiry(reader.getExpiry());
+        readers.get(findIndexById(id)).setLock(false);
         FileReaderCSV.writeFile(readers);
     }
 

@@ -124,6 +124,8 @@ public class CallCardManagementView implements Initializable {
 
     @FXML
     void handleOnKeyPressedReader(KeyEvent event) {
+        resetValueForm();
+        bAddBook.setDisable(false);
         Reader reader = ReaderManagementControl.getReaders().get(readerManagementControl.findIndexById(cBIdReader.getValue()));
         if (!reader.isLock()) {
             tFNameReader.setText(reader.getNameReader());
@@ -137,6 +139,8 @@ public class CallCardManagementView implements Initializable {
 
     @FXML
     void handleOnKeyPressedBook(KeyEvent event) {
+        resetValueBook();
+        bAddBook.setDisable(false);
         Book book = BookManagementControl.getBooks().get(bookManagementControl.findIndexById(cBIdBook.getValue()));
         tFNameBook.setText(book.getNameBook());
         if (!book.getAuthor().equals("")) {
@@ -209,6 +213,7 @@ public class CallCardManagementView implements Initializable {
                 callCardInformationManagementControl.deleteCallCardInforByIdCallCardAndIdBook(tFIdCallCard.getText(), cBIdBook.getValue());
                 showDataInTableView(callCardInformationManagementControl.findCallCardInforById(tFIdCallCard.getText()));
                 resetValueBook();
+                bAddBook.setDisable(false);
             }
         }
     }

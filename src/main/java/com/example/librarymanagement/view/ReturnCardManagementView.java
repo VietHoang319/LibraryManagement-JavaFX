@@ -119,8 +119,9 @@ public class ReturnCardManagementView implements Initializable {
 
     private List<CallCardInfor> compareList() {
         List<CallCardInfor> callCardInfors = callCardInformationManagementControl.findCallCardInforById(tFIdCallCard.getText());
-        List<ReturnCard> returnCards = returnCardManagementControl.findReturnCardById(tFIdCallCard.getText());
         List<CallCardInfor> callCardInforsCompare = new ArrayList<>();
+
+        List<ReturnCard> returnCards = returnCardManagementControl.findListReturnCardById(tFIdCallCard.getText());
         for (CallCardInfor callCardInfor : callCardInfors) {
             for (ReturnCard returnCard : returnCards) {
                 if (callCardInfor.getBook().getIdBook().equals(returnCard.getBook().getIdBook())) {
@@ -128,6 +129,7 @@ public class ReturnCardManagementView implements Initializable {
                 }
             }
         }
+
         callCardInfors.removeAll(callCardInforsCompare);
         return callCardInfors;
     }
@@ -158,10 +160,9 @@ public class ReturnCardManagementView implements Initializable {
     protected void onFindButtonClick(ActionEvent event) {
         resetValueForm();
         String text = tFFind.getText().toUpperCase().trim();
-        if(text.equals(NULL_VALUE)){
+        if (text.equals(NULL_VALUE)) {
             resetValueForm();
-        }
-        else {
+        } else {
             CallCard callCard = callCardManagementControl.findCallCardById(text);
             if (callCard == null) {
                 showAlert("Không tìm thấy");

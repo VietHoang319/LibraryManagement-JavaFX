@@ -235,7 +235,7 @@ public class ReaderManagementView implements Initializable {
     @FXML
     protected void onExtendButtonReaderClick() {
         LocalDateTime localDateTime = LocalDateTime.now();
-        readerManagementControl.extendExpiry(tFId.getText(),new Reader(tFId.getText(), tFName.getText(), tFAddress.getText(), tFEmail.getText(),
+        readerManagementControl.extendExpiry(tFId.getText(), new Reader(tFId.getText(), tFName.getText(), tFAddress.getText(), tFEmail.getText(),
                 tFPhoneNumber.getText(), localDateTime.plusMinutes(5), false));
         resetValue();
         resetForm();
